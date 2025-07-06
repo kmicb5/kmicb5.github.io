@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Music" />
+    <meta property="og:image" content="https://concertosofchaos.com/fermata.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Music">
+    <meta name="twitter:image" content="https://concertosofchaos.com/fermata.png">
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--background-color);
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2em;
+            padding: 2em;
+            background: rgb(255, 255, 255);
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .page-title span { display: inline-block; font-weight: bold; }
+
+        .page-description {
+            color: var(--secondary-color);
+            font-size: 1.2em;
+            margin-bottom: 1em;
+        }
+
+        .links-box {
+            background: white;
+            margin-bottom: 1.5em;
+            padding: 1.5em;
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .links-inner { display: inline-block; text-align: left; }
+
+        .links-box a { font-family: inherit; font-size: 1.1em; text-decoration: unset; }
+
+        .links-box p { margin: 0.5em 0; }
+
+        .link-schubert { color: #1179e5; }
+        .link-fanfare { color: #5bc62e; }
+        .link-groove { color: #f7d61d; }
+        .link-love { color: #f45c27; }
+        .link-pavane { color: #cc1b6a; }
+
+        .page-title .m { color: #1179e5; }
+        .page-title .u { color: #5bc62e; }
+        .page-title .s { color: #f7d61d; }
+        .page-title .i { color: #f45c27; }
+        .page-title .c { color: #cc1b6a; }
+        .page-title .bash { color: #000000; }
+
+        .box-schubert { box-shadow: 0 5px 45px #1179e5; }
+        .box-fanfare { box-shadow: 0 5px 45px #5bc62e; }
+        .box-groove { box-shadow: 0 5px 45px #f7d61d; }
+        .box-love { box-shadow: 0 5px 45px #f45c27; }
+        .box-pavane { box-shadow: 0 5px 45px #cc1b6a; }
+
+        .rainbow-wrapper {
+            position: relative;
+            border-radius: 16px;
+            padding: 0.9em;
+            overflow: visible;
+            z-index: 1;
+        }
+
+        .rainbow-wrapper::before {
+            content: "";
+            position: absolute;
+            top: 12px; left: 12px; right: 12px; bottom: 45px;
+            border-radius: 28px;
+            background: linear-gradient(
+                190deg,
+                #1179e5 0.5%,
+                #1179e5 1%,
+                #5bc62e 5%,
+                #5bc62e 10%,
+                #f7d61d 15%,
+                #f7d61d 20%,
+                #f45c27 25%,
+                #f45c27 30%,
+                #cc1b6a 35%,
+                #cc1b6a 40%,
+                #f45c27 45%,
+                #f45c27 50%,
+                #f7d61d 55%,
+                #f7d61d 60%,
+                #5bc62e 65%,
+                #5bc62e 70%,
+                #1179e5 100%,
+                #5bc62e 115%,
+                #5bc62e 120%,
+                #f7d61d 125%,
+                #f7d61d 130%,
+                #f45c27 135%,
+                #f45c27 140%,
+                #cc1b6a 145%,
+                #cc1b6a 150%,
+                #f45c27 155%,
+                #f45c27 160%,
+                #f7d61d 165%,
+                #f7d61d 170%,
+                #f45c27 175%,
+                #f45c27 180%
+            );
+            background-size: 200% 100%;
+            animation: scroll-gradient 7s linear infinite;
+            filter: blur(18px);
+            opacity: 100.0;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes scroll-gradient {
+            from {
+                background-position: 0% 0;
+            }
+            to {
+                background-position: -100% 0;
+            }
+        }
+
+        .links-box-dream { border-color: #000000; border-width: 2px; border-style: solid; }
+        .links-box-fanfare { border-color: #000000; border-width: 2px; border-style: solid; }
+        .links-box-groove { border-color: #000000; border-width: 2px; border-style: solid; }
+        .links-box-love { border-color: #000000; border-width: 2px; border-style: solid; }
+        .links-box-pavane { border-color: #000000; border-width: 2px; border-style: solid; }
+</style>
+</head>
+<body>
+    <div class="rainbow-wrapper">
+        <header>
+            <h1 class="page-title">
+                <span class="bash">$:&nbsp;</span>
+                <span class="m">m</span>
+                <span class="u">u</span>
+                <span class="s">s</span>
+                <span class="i">i</span>
+                <span class="c">c</span>
+            </h1>
+            <div class="page-description"><b>Shit I've composed!</b></div>
+        </header>
+    </div><br>
+        <div class="links-box box-schubert links-box-dream">
+            <div class="links-inner">
+                <a class="link-schubert" href="https://u.pcloud.link/publink/show?code=XZ6iRL5ZTtjLQiC8hxu4XMaelVtgW5XerMMy">Schubert's Dream 440AM</a>
+                <p>This is the first piece I composed. I learned Schubert's Ständchen when I was a kid and have always had a strong love for this piece. Every time 
+                    I heard it I always heard this other melody in my head that went right along with it. Then I happened to hear it a few years ago and thought to 
+                    myself, "now is the time buddy". So, I tried my hand at composing and arranging and this is what came of it.</p>
+            </div>
+        </div><br>
+        <div class="links-box box-fanfare links-box-fanfare">
+            <div class="links-inner">
+                <a class="link-fanfare" href="https://u.pcloud.link/publink/show?code=XZEMs45ZX7ndOch8FWby4souHi03n83YPFO7">Symphony Fanfare</a>
+                <p>This piece is based off of a warmup we used to do in HS band. Everyone plays the first note in uninson, then the second, but on the 
+                    third note, it splits and the second section starts over on the first note again. This happens again when note 5 is hit, the third 
+                    section starts over at the beginning. The pattern is akin to singing "Row, Row, Row Your Boat" as a round between three people.</p>
+            </div>
+        </div><br>
+        <div class="links-box box-groove links-box-groove">
+            <div class="links-inner">
+                <a class="link-groove" href="https://u.pcloud.link/publink/show?code=XZOMs45ZzDcVLkmkJSjTNfdwp605ESXSmglX">Groove</a>
+                <p>I woke up with this melody in my head. It's very bossa nova/island feel.</b></p>
+            </div>
+        </div><br>
+        <div class="links-box box-love links-box-love">
+            <div class="links-inner">
+                <a class="link-love" href="https://u.pcloud.link/publink/show?code=XZIMs45ZA8uq8DUktSbhzy38u2oLHJA7tGQX">Love</a>
+                <p>This song is special. I took a piece of paper and drew two rectangles side by side. Then, I wrote out the scale of notes 
+                    from A to G: A, B, C, D, E, F, G, A at the top. I then asked my bf to pick any letter(s) they wanted, in any order, and 
+                    write four letters in each rectangle. The only stipulation was <b>not</b> to spell words (FACE or FATE, etc). I took 
+                    those eight notes and this is what came of it.</b></p>
+            </div>
+        </div><br>
+        <div class="links-box box-pavane links-box-pavane">
+            <div class="links-inner">
+                <a class="link-pavane" href="https://u.pcloud.link/publink/show?code=XZAMs45ZRN4eWB3BbEzwlj8F1kKYAYwnleSV">A Different Pavane</a>
+                <p>Gabriel Fauré's <b><i>Pavane in F-sharp minor, Op. 50</i></b> is one of my ultimate faves. The haunting color of it just makes 
+                    me feel at home. True to my brain, when I hear this song I also hear another melody in my head that fits with it so well. 
+                    This is what came of it.</p>
+            </div>
+        </div><br>
+        <footer style="text-align: center; padding: 1em 0; background-color: var(--background-color);">
+            &copy; <b>2025 All rights reserved.</b>
+        </footer>
+</body>
+</html>
