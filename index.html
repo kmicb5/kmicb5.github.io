@@ -10,13 +10,30 @@
     <meta name="twitter:image" content="https://concertosofchaos.com/fermata.png">
 
     <style>
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('03_rainbow_galaxy.png') no-repeat center top;
+            background-size: cover;
+            z-index: -1;
+            transform: translateZ(0); /* fixes iOS paint bugs */
+            will-change: transform;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
-            background: url('03_rainbow_galaxy.png') no-repeat center top fixed;
-            background-size: cover;
+            /* background: url('03_rainbow_galaxy.png') no-repeat center top fixed; */
+            /* background-size: cover; */
+            position: relative;
+            z-index: 1;
+            background: none;
             line-height: 1.6;
         }
 
