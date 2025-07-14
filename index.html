@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Music!</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content="Music" />
-    <meta property="og:image" content="https://concertosofchaos.com/fermata.png">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Music">
+    <meta property="og:description" content="Shit I've composed!">
+    <meta property="og:image" content="https://deafpianist.com/fermata.png">
+    <meta property="og:url" content="https://deafpianist.com">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Music">
-    <meta name="twitter:image" content="https://concertosofchaos.com/fermata.png">
-
+    <meta name="twitter:image" content="https://deafpianist.com/fermata.png">
     <style>
         body::before {
             content: "";
@@ -68,7 +71,10 @@
             color: #5bc62e;
         }
 
-        .page-title span { display: inline-block; font-weight: bold; }
+        .page-title span {
+            display: inline-block;
+            font-weight: bold;
+        }
 
         .page-description {
             color: #ffffff;
@@ -90,102 +96,97 @@
             text-align: center;
         }
 
-        .links-inner { display: inline-block; text-align: left; }
-
-        .links-box a { font-family: inherit; font-size: 1.1em; text-decoration: unset; }
-
-        .links-box p { margin: 0.5em 0; }
-
-        .link-schubert { color: #1179e5; }
-        .link-fanfare { color: #5bc62e; }
-        .link-groove { color: #f7d61d; }
-        .link-love { color: #f45c27; }
-        .link-pavane { color: #cc1b6a; }
-
-        .page-title .m { color: #1179e5; }
-        .page-title .u { color: #5bc62e; }
-        .page-title .s { color: #f7d61d; }
-        .page-title .i { color: #f45c27; }
-        .page-title .c { color: #cc1b6a; }
-        .page-title .bash { color: #ffffff; }
-
-        /* .box-schubert { box-shadow: 0 5px 45px #1179e5;  } */
-        /* .box-fanfare { box-shadow: 0 5px 45px #5bc62e; } */
-        /* .box-groove { box-shadow: 0 5px 45px #f7d61d; } */
-        /* .box-love { box-shadow: 0 5px 45px #f45c27; } */
-        /* .box-pavane { box-shadow: 0 5px 45px #cc1b6a; } */
-
-        /* .rainbow-wrapper {
-            position: relative;
-            border-radius: 16px;
-            padding: 0.9em;
-            overflow: visible;
-            z-index: 1;
+        .links-inner {
+            display: inline-block;
+            text-align: left;
         }
 
-        .rainbow-wrapper::before {
-            content: "";
-            position: absolute;
-            top: 12px; left: 12px; right: 12px; bottom: 45px;
-            border-radius: 28px;
-            background: linear-gradient(
-                190deg,
-                #1179e5 0.5%,
-                #1179e5 1%,
-                #5bc62e 5%,
-                #5bc62e 10%,
-                #f7d61d 15%,
-                #f7d61d 20%,
-                #f45c27 25%,
-                #f45c27 30%,
-                #cc1b6a 35%,
-                #cc1b6a 40%,
-                #f45c27 45%,
-                #f45c27 50%,
-                #f7d61d 55%,
-                #f7d61d 60%,
-                #5bc62e 65%,
-                #5bc62e 70%,
-                #1179e5 100%,
-                #5bc62e 115%,
-                #5bc62e 120%,
-                #f7d61d 125%,
-                #f7d61d 130%,
-                #f45c27 135%,
-                #f45c27 140%,
-                #cc1b6a 145%,
-                #cc1b6a 150%,
-                #f45c27 155%,
-                #f45c27 160%,
-                #f7d61d 165%,
-                #f7d61d 170%,
-                #f45c27 175%,
-                #f45c27 180%
-            );
-            background-size: 200% 100%;
-            animation: scroll-gradient 7s linear infinite;
-            filter: blur(18px);
-            opacity: 100.0;
-            pointer-events: none;
-            z-index: -1;
+        .links-box a {
+            font-family: inherit;
+            font-size: 1.1em;
+            text-decoration: unset;
         }
 
-        @keyframes scroll-gradient {
-            from {
-                background-position: 0% 0;
-            }
-            to {
-                background-position: -100% 0;
-            }
-        } */
+        .links-box p {
+            margin: 0.5em 0;
+        }
 
-        .links-box-dream { border-color: #000000; border-width: 2px; border-style: solid; }
-        .links-box-fanfare { border-color: #000000; border-width: 2px; border-style: solid; }
-        .links-box-groove { border-color: #000000; border-width: 2px; border-style: solid; }
-        .links-box-love { border-color: #000000; border-width: 2px; border-style: solid; }
-        .links-box-pavane { border-color: #000000; border-width: 2px; border-style: solid; }
-</style>
+        .link-schubert {
+            color: #1179e5;
+        }
+
+        .link-fanfare {
+            color: #5bc62e;
+        }
+
+        .link-groove {
+            color: #f7d61d;
+        }
+        
+        .link-love {
+            color: #f45c27;
+        }
+
+        .link-pavane {
+            color: #cc1b6a;
+        }
+
+        .page-title .m {
+            color: #1179e5;
+        }
+
+        .page-title .u {
+            color: #5bc62e;
+        }
+
+        .page-title .s {
+            color: #f7d61d;
+        }
+
+        .page-title .i {
+            color: #f45c27;
+        }
+
+        .page-title .c {
+            color: #cc1b6a;
+        }
+
+        .page-title .bash {
+            color: #ffffff;
+        }
+
+        .links-box-dream {
+            border-color: #000000;
+            border-width: 2px;
+            border-style: solid;
+        }
+
+        .links-box-fanfare {
+            border-color: #000000;
+            border-width: 2px;
+            border-style: solid;
+        }
+
+        .links-box-groove {
+            border-color: #000000;
+            border-width: 2px;
+            border-style: solid;
+        }
+
+        .links-box-love {
+            border-color: #000000;
+            border-width: 2px;
+            border-style: solid;
+        }
+
+        .links-box-pavane {
+            border-color: #000000;
+            border-width: 2px;
+            border-style: solid;
+        }
+    </style>
 </head>
+
 <body>
     <div class="rainbow-wrapper">
         <header>
@@ -198,9 +199,9 @@
                 <span class="c">c</span>
             </h1>
             <div class="page-description"><b>Shit I've composed!</b><p></p>
-            <div class="app_name_line">(All songs composed on an iPad using <a href="https://symphonypro.net" class="custom-orange-links" target="_blank" rel="noopener noreferrer"><b>SymphonyPro</b></a>. It is <u><i>by far</i></u> the best app I have<br>
-                used to compose and arrange. Download on the <a href="https://apps.apple.com/us/app/symphony-pro-music-notation/id412380315" class="custom-orange-links" target="_blank" rel="noopener noreferrer"><b>App Store</b></a>!)
-            </div>
+                <div class="app_name_line">(All songs composed on an iPad using <a href="https://symphonypro.net" class="custom-orange-links" target="_blank" rel="noopener noreferrer"><b>SymphonyPro</b></a>. It is <u><i>by far</i></u> the best app I have<br>
+                    used to compose and arrange. Download on the <a href="https://apps.apple.com/us/app/symphony-pro-music-notation/id412380315" class="custom-orange-links" target="_blank" rel="noopener noreferrer"><b>App Store</b></a>!)
+                </div>
             </div>
         </header>
     </div><br>
