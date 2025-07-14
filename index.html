@@ -29,8 +29,6 @@
             max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
-            /* background: url('03_rainbow_galaxy.png') no-repeat center top fixed; */
-            /* background-size: cover; */
             position: relative;
             z-index: 1;
             background: none;
@@ -39,18 +37,34 @@
 
         header {
             text-align: center;
-            margin-bottom: 2em;
-            padding: 2em;
-            background: rgb(255, 255, 255);
+            font-size: 19px;
+            overflow: hidden;
+            margin-bottom: 1em;
+            padding: .5em;
+            background: rgba(144, 37, 151, 0.258);
+            background-position: bottom;
             border-radius: 8px;
             position: relative;
+            z-index: 1;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('blue_sheets_whitebg.png') no-repeat bottom center;
+            background-size: cover;
+            background-position-y: top;
+            opacity: 0.15;
+            z-index: -1;
+            border-radius: inherit;
         }
 
         .page-title span { display: inline-block; font-weight: bold; }
 
         .page-description {
-            color: var(--secondary-color);
-            font-size: 1.2em;
+            color: #ffffff;
+            font-size: 1.5em;
             margin-bottom: 1em;
         }
 
@@ -79,7 +93,7 @@
         .page-title .s { color: #f7d61d; }
         .page-title .i { color: #f45c27; }
         .page-title .c { color: #cc1b6a; }
-        .page-title .bash { color: #000000; }
+        .page-title .bash { color: #ffffff; }
 
         /* .box-schubert { box-shadow: 0 5px 45px #1179e5;  } */
         /* .box-fanfare { box-shadow: 0 5px 45px #5bc62e; } */
@@ -87,7 +101,7 @@
         /* .box-love { box-shadow: 0 5px 45px #f45c27; } */
         /* .box-pavane { box-shadow: 0 5px 45px #cc1b6a; } */
 
-        .rainbow-wrapper {
+        /* .rainbow-wrapper {
             position: relative;
             border-radius: 16px;
             padding: 0.9em;
@@ -149,7 +163,7 @@
             to {
                 background-position: -100% 0;
             }
-        }
+        } */
 
         .links-box-dream { border-color: #000000; border-width: 2px; border-style: solid; }
         .links-box-fanfare { border-color: #000000; border-width: 2px; border-style: solid; }
