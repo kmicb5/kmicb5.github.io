@@ -1,0 +1,171 @@
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('03_rainbow_galaxy.png') no-repeat center top;
+    background-size: cover;
+    z-index: -1;
+    transform: translateZ(0); /* fixes iOS paint bugs */
+    will-change: transform;
+    }
+
+    body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+    background: none;
+    line-height: 1.6;
+    }
+
+    header {
+    text-align: center;
+    font-size: 19px;
+    overflow: hidden;
+    margin-bottom: 1em;
+    padding: .5em;
+    background: rgba(144, 37, 151, 0.258);
+    background-position: bottom;
+    border-radius: 8px;
+    position: relative;
+    z-index: 1;
+    }
+
+    header::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url('blue_sheets_nobg.png') no-repeat bottom center;
+    background-size: cover;
+    background-position-y: top;
+    opacity: 0.75;
+    z-index: -1;
+    border-radius: inherit;
+    }
+
+    .custom-orange-links {
+    color: #f45c27;
+    }
+
+    .custom-orange-links:visited {
+    color: #5bc62e;
+    }
+
+    .page-title span {
+    display: inline-block;
+    font-weight: bold;
+    }
+
+    .page-description {
+    color: #ffffff;
+    font-size: 21pt;
+    margin-bottom: 1em;
+    }
+
+    .links-box {
+    background: white;
+    margin-bottom: 1.5em;
+    padding: 1.5em;
+    border-radius: 8px;
+    text-align: left;
+    }
+
+    .app_name_line {
+    color: #ffffff;
+    font-size: 15pt;
+    text-align: center;
+    }
+
+    .links-inner {
+    display: inline-block;
+    text-align: left;
+    }
+
+    .links-box a {
+    font-family: inherit;
+    font-size: 1.1em;
+    text-decoration: unset;
+    }
+
+    .links-box p {
+    margin: 0.5em 0;
+    }
+
+    .link-schubert {
+    color: #1179e5;
+    }
+
+    .link-fanfare {
+    color: #5bc62e;
+    }
+
+    .link-groove {
+    color: #f7d61d;
+    }
+
+    .link-love {
+    color: #f45c27;
+    }
+
+    .link-pavane {
+    color: #cc1b6a;
+    }
+
+    .page-title .m {
+    color: #1179e5;
+    }
+
+    .page-title .u {
+    color: #5bc62e;
+    }
+
+    .page-title .s {
+    color: #f7d61d;
+    }
+
+    .page-title .i {
+    color: #f45c27;
+    }
+
+    .page-title .c {
+    color: #cc1b6a;
+    }
+
+    .page-title .bash {
+    color: #ffffff;
+    }
+
+    .links-box-dream {
+    border-color: #000000;
+    border-width: 2px;
+    border-style: solid;
+    }
+
+    .links-box-fanfare {
+    border-color: #000000;
+    border-width: 2px;
+    border-style: solid;
+    }
+
+    .links-box-groove {
+    border-color: #000000;
+    border-width: 2px;
+    border-style: solid;
+    }
+
+    .links-box-love {
+    border-color: #000000;
+    border-width: 2px;
+    border-style: solid;
+    }
+
+    .links-box-pavane {
+    border-color: #000000;
+    border-width: 2px;
+    border-style: solid;
+    }
