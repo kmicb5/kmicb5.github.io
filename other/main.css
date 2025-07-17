@@ -48,6 +48,16 @@ body::before {
     border-radius: inherit;
     }
 
+    .parallax-bg {
+        background: url('/images/03_rainbow_galaxy.png') no-repeat center top;
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center 0;
+        position: relative;
+        width: 100%;
+        z-index: -1;
+    }
+
     .custom-orange-links {
     color: #f45c27;
     }
