@@ -164,6 +164,10 @@ header::before {
     color: #cc1b6a;
 }
 
+.link-confidential {
+    color: #6c44c8
+}
+
 .page-title .m {
     color: #1179e5;
 }
