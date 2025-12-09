@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Trek Academy</title>
+    <style>
+        :root {
+            --primary-bg: #0a0e27;
+            --secondary-bg: #1a2a4a;
+            --accent-gold: #d4af37;
+            --accent-teal: #00d4ff;
+            --text-light: #e0e0e0;
+            --text-dim: #a0a0a0;
+            --border-color: #2a4a7a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary-bg) 0%, #0d1535 100%);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        body {
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--secondary-bg);
+            border: 2px solid var(--accent-teal);
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.2), inset 0 0 20px rgba(0, 212, 255, 0.05);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(180deg, #1a3a5a 0%, var(--secondary-bg) 100%);
+            padding: 30px 20px;
+            border-bottom: 2px solid var(--accent-gold);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: 300;
+            letter-spacing: 3px;
+            color: var(--accent-gold);
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: var(--accent-teal);
+            font-size: 0.95em;
+            letter-spacing: 2px;
+        }
+
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.3);
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 12px 30px;
+            border: 2px solid var(--accent-teal);
+            background: transparent;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 1em;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .tab-button:hover {
+            background: rgba(0, 212, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .tab-button.active {
+            background: var(--accent-teal);
+            color: var(--primary-bg);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        .content {
+            padding: 40px;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-in;
+        }
+
+        .tab-content.active {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-section {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .content-image {
+            flex: 0 0 300px;
+            height: 300px;
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-gold));
+            border: 2px solid var(--accent-teal);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+            color: var(--primary-bg);
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            font-weight: 500;
+        }
+
+        .content-text {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .content-text h2 {
+            font-size: 1.8em;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .content-text p {
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            font-size: 1em;
+        }
+
+        .highlight {
+            color: var(--accent-teal);
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px;
+                min-height: auto;
+            }
+
+            .content-section {
+                flex-direction: column;
+            }
+
+            .content-image {
+                flex: 0 0 auto;
+                width: 100%;
+                height: 250px;
+            }
+
+            .tabs-container {
+                gap: 5px;
+            }
+
+            .tab-button {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>STARFLEET ACADEMY</h1>
+            <p>Training Program Levels</p>
+        </div>
+
+        <div class="tabs-container">
+            <button class="tab-button active" data-tab="cadets">Cadets</button>
+            <button class="tab-button" data-tab="seasoned">Seasoned</button>
+            <button class="tab-button" data-tab="advanced">Advanced</button>
+        </div>
+
+        <div class="content">
+            <!-- Cadets Tab -->
+            <div class="tab-content active" id="cadets">
+                <div class="content-section">
+                    <div class="content-image">
+                        Placeholder Image: Cadet Training Chamber
+                    </div>
+                    <div class="content-text">
+                        <h2>Cadets</h2>
+                        <p>Welcome to Starfleet Academy! Our Cadet program is designed for those just beginning their journey in space exploration and Federation service.</p>
+                        <p>In this level, you will:</p>
+                        <ul style="margin: 15px 0 0 20px; line-height: 2;">
+                            <li>Master the <span class="highlight">fundamentals</span> of starship operations</li>
+                            <li>Learn <span class="highlight">navigation</span> and <span class="highlight">communication</span> protocols</li>
+                            <li>Understand <span class="highlight">basic engineering</span> principles</li>
+                            <li>Study <span class="highlight">Federation history</span> and diplomacy</li>
+                            <li>Complete <span class="highlight">physical and mental</span> assessments</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seasoned Tab -->
+            <div class="tab-content" id="seasoned">
+                <div class="content-section">
+                    <div class="content-image">
+                        Placeholder Image: Officer Command Center
+                    </div>
+                    <div class="content-text">
+                        <h2>Seasoned Officers</h2>
+                        <p>You've completed your initial training and have field experience. This program builds on your foundation with advanced tactical and strategic knowledge.</p>
+                        <p>In this level, you will:</p>
+                        <ul style="margin: 15px 0 0 20px; line-height: 2;">
+                            <li>Develop <span class="highlight">leadership</span> and <span class="highlight">decision-making</span> skills</li>
+                            <li>Master <span class="highlight">advanced engineering</span> systems</li>
+                            <li>Study <span class="highlight">first contact</span> protocols</li>
+                            <li>Learn <span class="highlight">crisis management</span> and tactical response</li>
+                            <li>Prepare for <span class="highlight">command certification</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced Tab -->
+            <div class="tab-content" id="advanced">
+                <div class="content-section">
+                    <div class="content-image">
+                        Placeholder Image: Admiral's Fleet Operations
+                    </div>
+                    <div class="content-text">
+                        <h2>Advanced Command</h2>
+                        <p>Only the most dedicated officers reach this level. Advanced training focuses on fleet strategy, diplomatic negotiations, and command responsibilities for entire sectors.</p>
+                        <p>In this level, you will:</p>
+                        <ul style="margin: 15px 0 0 20px; line-height: 2;">
+                            <li>Master <span class="highlight">fleet operations</span> and strategy</li>
+                            <li>Study <span class="highlight">diplomatic relations</span> with alien species</li>
+                            <li>Learn <span class="highlight">temporal mechanics</span> and quantum physics</li>
+                            <li>Understand <span class="highlight">long-term mission</span> planning</li>
+                            <li>Prepare for <span class="highlight">admiralty rank</span> and beyond</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functionality
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const tabName = this.getAttribute('data-tab');
+
+                // Remove active class from all buttons and contents
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                // Add active class to clicked button and corresponding content
+                this.classList.add('active');
+                document.getElementById(tabName).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
