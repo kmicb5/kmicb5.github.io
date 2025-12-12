@@ -8,7 +8,7 @@
     <style>
         :root {
             --primary-bg: #0a0e27;
-            --secondary-bg: #1a2a4a;
+            --secondary-bg: #000000;
             --accent-gold: #d4af37;
             --accent-teal: #00d4ff;
             --text-light: #e0e0e0;
@@ -183,6 +183,18 @@
             font-size: 1em;
         }
 
+        .content-text .rank-title {
+            margin-bottom: 5px;
+            font-size: 2em;
+        }
+
+        .content-text .rank-name {
+            color: var(--accent-teal);
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+
         .highlight {
             color: var(--accent-teal);
             font-weight: 500;
@@ -279,20 +291,40 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>STFC [BORG] ACADEMY</h1>
-            <p>Everything to help you succeed!</p>
+            <h1>[BORG] ACADEMY</h1>
+            <p>Welcome to the BORG Alliance! Here are some things that will help you succeed!</p>
         </div>
         <div class="tabs-container">
-            <button class="tab-button active" data-tab="roe">RoE</button>
+            <button class="tab-button active" data-tab="command">Command</button>
+            <button class="tab-button" data-tab="roe">RoE</button>
             <button class="tab-button" data-tab="terminology">Terminology</button>
             <button class="tab-button" data-tab="battle">Battle</button>
+            <button class="tab-button" data-tab="icons">Icons</button>
             <button class="tab-button" data-tab="away">Away Team Missions</button>
             <button class="tab-button" data-tab="tips">Tips & Tricks</button>
-            <button class="tab-button" data-tab="icons">Icons</button>
         </div>
         <div class="content">
+            <!-- Command Tab -->
+             <div class="tab-content active" id="command">
+                <h1 style="color: var(--accent-gold); text-align: center;">Chain of Command</h1>
+                <div class="content-section">
+                    <div class="content-image clickable" onclick="openLightbox(this)">
+                        <img src="chaincommand.jpg" alt="tng command">
+                    </div>
+                        <div class="content-text">
+                            <h3 class="rank-title" style="color: red;">Admiral:</h3>
+                            <p class="rank-name">YooperKirks</p><br>
+
+                            <h3 class="rank-title" style="color: gold;">Commodores:</h3>
+                            <p class="rank-name">TheRealDonkeyD | ShellbackCGN39</p><br>
+
+                            <h3 class="rank-title" style="color: rgb(30, 30, 221);">Premiers:</h3>
+                            <p class="rank-name">Paraparacelsus | KMICB5 | Nullof98 | ColFubar</p>
+                        </div>
+                </div>
+            </div>
             <!-- RoE Tab -->
-            <div class="tab-content active" id="roe">
+            <div class="tab-content" id="roe">
                 <center><h1 style="color: var(--accent-gold);">Rules of Engagement (RoE): No Loot = Don't Shoot!</h1></center>
                 <div class="content-section">
                     <div class="content-image clickable" onclick="openLightbox(this)">
