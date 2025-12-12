@@ -8,20 +8,20 @@
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="BORG Academy">
-    <meta property="og:description" content="BORG Academy">
+    <meta property="og:title" content="[BORG] Academy">
+    <meta property="og:description" content="[BORG] Academy">
     <meta property="og:image" content="https://deafpianist.com/stfc/images/og_image.png">
     <meta property="og:url" content="https://deafpianist.com/stfc">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="BORG Academy">
-    <meta name="twitter:description" content="BORG Academy">
+    <meta name="twitter:title" content="[BORG] Academy">
+    <meta name="twitter:description" content="[BORG] Academy">
     <meta name="twitter:image" content="https://deafpianist.com/stfc/images/og_image.png">
 
     <!-- Apple Touch (iOS Home Screen) -->
     <link rel="apple-touch-icon" href="/stfc/images/apple-touch-icon.png">
-    <meta name="apple-mobile-web-app-title" content="BORG Academy">
+    <meta name="apple-mobile-web-app-title" content="[BORG] Academy">
 
     <!-- Favicon (single .ico file) -->
     <link rel="icon" href="/stfc/images/favicon.ico?v=2">
@@ -313,11 +313,17 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>[BORG] ACADEMY</h1>
-            <p>Welcome to the BORG Alliance! Here are some things that will help you succeed!</p>
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 20px;">
+                <div style="text-align: center; flex: 1;">
+                    <h1 style="color: green;">[BORG] ACADEMY</h1>
+                    <p>Welcome to the BORG Alliance! Here are some things that will help you succeed!</p>
+                </div>
+                <img src="images/borglogo.png" alt="borg logo" width="150" style="flex-shrink: 0; border-radius: 15px; opacity: 0.35;">
+            </div>
         </div>
         <div class="tabs-container">
-            <button class="tab-button active" data-tab="command">Command</button>
+            <button class="tab-button active" data-tab="welcome">Welcome!</button>
+            <button class="tab-button" data-tab="command">Command</button>
             <button class="tab-button" data-tab="roe">RoE</button>
             <button class="tab-button" data-tab="terminology">Terminology</button>
             <button class="tab-button" data-tab="battle">Battle</button>
@@ -326,8 +332,22 @@
             <button class="tab-button" data-tab="tips">Tips & Tricks</button>
         </div>
         <div class="content">
+            <!-- Welcome Tab -->
+             <div class="tab-content active" id="welcome">
+                <div class="content-section">
+                    <div class="content-image clickable" onclick="openLightbox(this)">
+                        <img src="images/welcome.png" alt="borg welcome image">
+                    </div>
+                        <div class="content-text">
+                            <p style="color: green;">Welcome everyone to the [BORG] Alliance! This page was created to 
+                                help our team, both old and new players.
+                            </p>
+                        </div>
+                </div>
+            </div>
+
             <!-- Command Tab -->
-             <div class="tab-content active" id="command">
+             <div class="tab-content" id="command">
                 <h1 style="color: var(--accent-gold); text-align: center;">Chain of Command</h1>
                 <div class="content-section">
                     <div class="content-image clickable" onclick="openLightbox(this)">
