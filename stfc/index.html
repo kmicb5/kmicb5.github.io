@@ -29,13 +29,14 @@
     <link rel="apple-touch-icon-precomposed" href="/stfc/images/apple-touch-icon.png?v=2">
     <style>
         :root {
-            --primary-bg: #0a0e27;
+            --primary-bg: #000000;
             --secondary-bg: #000000;
             --accent-gold: #d4af37;
             --accent-teal: #00d4ff;
             --text-light: #e0e0e0;
             --text-dim: #a0a0a0;
-            --border-color: #2a4a7a;
+            --border-color: #000000;
+            /* --border-color: #2a4a7a; */
         }
 
         * {
@@ -49,7 +50,7 @@
             width: 100%;
             height: 100%;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--primary-bg) 0%, #0d1535 100%);
+            background: linear-gradient(135deg, var(--primary-bg) 0%, #000000 100%);
             color: var(--text-light);
             overflow-x: hidden;
         }
@@ -63,14 +64,14 @@
             min-height: 1100px;
             margin: 0 auto;
             background: var(--secondary-bg);
-            border: 2px solid var(--accent-teal);
+            border: 2px solid var(--accent-gold);
             border-radius: 12px;
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.2), inset 0 0 20px rgba(0, 212, 255, 0.05);
+            box-shadow: 0 0 30px green, inset 0 0 20px green;
             overflow: hidden;
         }
 
         .header {
-            background: linear-gradient(180deg, #1a3a5a 0%, var(--secondary-bg) 100%);
+            background: linear-gradient(180deg, #000000 0%, var(--secondary-bg) 100%);
             padding: 30px 20px;
             border-bottom: 2px solid var(--accent-gold);
             text-align: center;
@@ -116,13 +117,13 @@
 
         .tab-button:hover {
             background: rgba(0, 212, 255, 0.1);
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+            box-shadow: 0 0 15px var(--accent-gold);
         }
 
         .tab-button.active {
-            background: var(--accent-teal);
-            color: var(--primary-bg);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            background: green;
+            color: var(--accent-gold); /* text color */
+            box-shadow: 0 0 20px var(--accent-gold);
         }
 
         .content {
@@ -202,7 +203,7 @@
             line-height: 1.8;
             color: var(--text-light);
             margin-bottom: 15px;
-            font-size: 1em;
+            font-size: 1.3em;
         }
 
         .content-text .rank-title {
@@ -338,9 +339,15 @@
                         <img src="images/welcome.png" alt="borg welcome image">
                     </div>
                         <div class="content-text">
-                            <p style="color: green;">Welcome everyone to the [BORG] Alliance! This page was created to 
-                                help our team, both old and new players.
-                            </p>
+                            <p style="color: green;">Welcome to the [BORG] Alliance! This page was created to 
+                                help our team, both old and new players but primarily beginners. Start with the RoE tab
+                                above to learn what rules we follow on this server. Feel free to ask any questions in
+                                the AC (Alliance Chat) chat room which is found at the top, center of your screen.</p><br>
+                                <p style="color: green;">We are a strong team and we try to help each other as much as
+                                    possible. However, please keep in mind that at the end of the day, this is a game and IRL (In Real World)
+                                    things come first. This means that your life outside of the game takes priority and we all understand
+                                    this. So, don't feel pressured or forced to <i>have</i> to be on 24/7. If you can, that's awsome! But
+                                    definately not required. Have fun and LLAP!</p>
                         </div>
                 </div>
             </div>
