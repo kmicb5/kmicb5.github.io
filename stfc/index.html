@@ -36,7 +36,6 @@
             --text-light: #e0e0e0;
             --text-dim: #a0a0a0;
             --border-color: #000000;
-            /* --border-color: #2a4a7a; */
         }
 
         * {
@@ -71,7 +70,7 @@
         }
 
         .header {
-            background: linear-gradient(180deg, #000000 0%, var(--secondary-bg) 100%);
+            background: black;
             padding: 30px 20px;
             border-bottom: 2px solid var(--accent-gold);
             text-align: center;
@@ -104,7 +103,7 @@
 
         .tab-button {
             padding: 12px 30px;
-            border: 2px solid var(--accent-teal);
+            border: 2px solid var(--accent-gold);
             background: transparent;
             color: var(--text-light);
             cursor: pointer;
@@ -158,7 +157,7 @@
         }
 
         .content-section {
-            border: 1px solid var(--accent-teal);
+            border: 1px solid var(--accent-gold);
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 20px;
@@ -173,7 +172,7 @@
             height: auto;
             max-width: 35%;
             background: white;
-            border: 2px solid var(--accent-teal);
+            border: 2px black;
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -182,7 +181,6 @@
             color: var(--primary-bg);
             text-align: center;
             padding: 0;
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
             font-weight: 500;
             overflow: hidden;
         }
@@ -216,7 +214,6 @@
             margin-bottom: 20px;
             font-size: 2em;
         }
-
 
         .highlight {
             color: var(--accent-teal);
@@ -371,6 +368,7 @@
                         </div>
                 </div>
             </div>
+
             <!-- RoE Tab -->
             <div class="tab-content" id="roe">
                 <h1 style="color: var(--accent-gold); text-align: center;">Rules of Engagement (RoE): No Loot = Don't Shoot!</h1>
@@ -397,7 +395,23 @@
                         <br>
                     </div>
                 </div>
+                <div class="content-section">
+                    <div class="content-image clickable" onclick="openLightbox(this)">
+                        <img src="images/zeronode.png" alt="image of a zeroed node in stfc">
+                    </div>
+                    <div class="content-text">
+                            <h2 style="text-align: center;">Zeroed Mining Nodes</h2>
+                        <br><p>Under RoE, we do not shoot if there is no loot and this also goes for Survey ships
+                            (the ones built for mining) that are sitting on what's called a "zeroed" node. Every node has a quantity
+                            shown when you click it. While mining, when that total quantity is mined, the node shows 0 resources left and
+                            mining has stopped. We <u>do not shoot Survey ships on zeroed nodes</u>.</p><br>
+                            <p>Now, if the ship mining is <i>not</i> a Survey ship and it is sitting on a zeroed node, you are within RoE
+                            and can blow their asses up. Non-Survey ships are Battleships, Explorers, and Interceptors.</p>
+                        <br>
+                    </div>
+                </div>
             </div>
+
             <!-- Terminology Tab -->
             <div class="tab-content" id="terminology">
                 <div class="content-section">
@@ -421,6 +435,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- Battle Tab -->
             <div class="tab-content" id="battle">
                 <div class="content-section">
@@ -441,6 +456,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- Icons Tab -->
             <div class="tab-content" id="icons">
                 <div class="content-section">
