@@ -107,6 +107,14 @@
             letter-spacing: 2px;
         }
 
+        .heading-number {
+            color: var(--accent-gold);
+        }
+
+        .heading-text {
+            color: green;
+        }
+
         .tabs-container {
             display: flex;
             justify-content: center;
@@ -188,7 +196,6 @@
             flex: 0 0 auto;
             height: auto;
             max-width: 35%;
-            background: white;
             border: 2px black;
             border-radius: 8px;
             display: flex;
@@ -200,6 +207,12 @@
             padding: 0;
             font-weight: 500;
             overflow: hidden;
+        }
+
+        .battle-icons {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
         }
 
         .content-text {
@@ -218,7 +231,7 @@
         .content-text p {
             line-height: 1.8;
             color: var(--text-light);
-            margin-bottom: 15px;
+            /* margin-bottom: 15px; */
             font-size: 1.3em;
         }
 
@@ -348,6 +361,7 @@
             <a href="#tips" class="tab-button" data-tab="tips">Tips & Tricks</a>
         </div>
         <div class="content">
+
             <!-- Welcome Tab -->
              <div class="tab-content active" id="welcome">
                 <div class="content-section">
@@ -390,45 +404,135 @@
 
             <!-- RoE Tab -->
             <div class="tab-content" id="roe">
-                <h1 style="color: var(--accent-gold); text-align: center;">Rules of Engagement (RoE): No Loot = Don't Shoot!</h1>
+                <h1 style="color: var(--accent-gold); text-align: center;">717/BORG Rules of Engagement (RoE)</h1>
+                <!-- Survey Ships -->
                 <div class="content-section">
-                    <div class="content-image clickable" onclick="openLightbox(this)">
-                        <img src="images/roe01.png" alt="image of cargo box from stfc">
-                    </div>
                     <div class="content-text">
-                            <h2 style="text-align: center;">Empty Loot Box :-(</h2>
-                        <br><p>What does this mean? When it comes to Protected Cargo, you are either Over or Under. When a
-                            ship is mining on a node, click on them <i>and click Scan</i>, you will see a box at the bottom of
-                            the window. Click it. If there is nothing in the left side, you may not attack them. This is known
-                            as <b>UPC</b>: <u>Under Protected Cargo.</u></p>
+                        <p>
+                            <b>
+                                <span class="heading-number">1.</span>
+                                <span class="heading-text"> Survey Ships:</span>
+                            </b>
+                        </p>
+                        <ul style="margin: 15px 0 0 20px; line-height: 2; text-align: left; display: inline-block;">
+                            <li>No protection in a system where the same alliance is raiding a base.</li>
+                            <li>The survey ship is being used for attacking other ships or hostiles.</li>
+                            <li>The survey ship is zero node and no other nodes are available in the system.
+                                The attacker must immediately start mining the node just cleared.</li><br>
+                        </ul>
+                    </div>
+                    <div class="content-image">
+                        <img src="images/survey.png" alt="survey icon">
                     </div>
                 </div>
+
+                <!-- Warships as Miners -->
                 <div class="content-section">
-                    <div class="content-image clickable" onclick="openLightbox(this)">
-                        <img src="images/loot.png" alt="image of cargo box from stfc">
-                    </div>
                     <div class="content-text">
-                            <h2 style="text-align: center;">Loot Box Has Shit! :-)</h2>
-                        <br><p>If the box shows contents on the left, then it's known as Over Protected Cargo, or OPC. This is
-                            within RoE and you can blow their asses up.</p>
-                        <br>
+                        <p>
+                            <b>
+                                <span class="heading-number">2.</span>
+                                <span class="heading-text"> Warships as Miners:</span>
+                            </b>
+                        </p>
+                        <ul style="margin: 15px 0 0 20px; line-height: 2; text-align: left; display: inline-block;">
+                            <li>Specialty warships are protected (e.g. Discovery, NSEA, Voyager) <u>only</u> when actively
+                                mining for their loop materials.</li><br>
+                        </ul>
+                    </div>
+                    <div class="content-image battle-icons">
+                        <img src="images/battleship.png" alt="battleship icon">
+                        <img src="images/explorer.png" alt="explorer icon">
+                        <img src="images/interceptor.png" alt="interceptor icon">
                     </div>
                 </div>
+
+                <!-- Token Space -->
                 <div class="content-section">
-                    <div class="content-image clickable" onclick="openLightbox(this)">
-                        <img src="images/zeronode.png" alt="image of a zeroed node in stfc">
-                    </div>
                     <div class="content-text">
-                            <h2 style="text-align: center;">Zeroed Mining Nodes</h2>
-                        <br><p>Under RoE, we do not shoot if there is no loot and this also goes for Survey ships
-                            (the ones built for mining) that are sitting on what's called a "zeroed" node. Every node has a quantity
-                            shown when you click it. While mining, when that total quantity is mined, the node shows 0 resources left and
-                            mining has stopped. We <u>do not shoot Survey ships on zeroed nodes</u>.</p><br>
-                            <p>Now, if the ship mining is <i>not</i> a Survey ship and it is sitting on a zeroed node, you are within RoE
-                            and can blow their asses up. Non-Survey ships are Battleships, Explorers, and Interceptors.</p>
-                        <br>
+                        <p>
+                            <b>
+                                <span class="heading-number">3.</span>
+                                <span class="heading-text">Token Space: Systems that require specific Tokens</span>
+                            </b>
+                        </p>
+                        <ul style="margin: 15px 0 0 20px; line-height: 2; text-align: left; display: inline-block;">
+                            <li>Protected from attacks on any ship type. Any system requiring a special token
+                                (e.g. Borg, Mirror) is protected.</li><br>
+                        </ul>
+                    </div>
+                    <div class="content-image">
+                        <img src="images/transwarptoken.png" alt="transwarp icon">
                     </div>
                 </div>
+
+                <!-- Armadas -->
+                <div class="content-section">
+                    <div class="content-text">
+                        <p>
+                            <b>
+                                <span class="heading-number">4.</span>
+                                <span class="heading-text"> Armadas:</span>
+                            </b>
+                        </p>
+                        <ul style="margin: 15px 0 0 20px; line-height: 2; text-align: left; display: inline-block;">
+                            <li>Ships are protected when inside the armada circle except when using it as
+                                protection after initiating an attack on another player.</li><br>
+                        </ul>
+                    </div>
+                    <div class="content-image">
+                        <img src="images/armada3.png" alt="armada icons">
+                    </div>
+                </div>
+
+                <!-- Alliance Owned Territory -->
+                <div class="content-section">
+                    <div class="content-text">
+                        <p>
+                            <b>
+                                <span class="heading-number">5.</span>
+                                <span class="heading-text">Alliance Owned Territory:</span>
+                            </b>
+                        </p>
+                        <ul style="margin: 15px 0 0 20px; line-height: 2; text-align: left; display: inline-block;">
+                            <li>Entering another alliance's territory provides no protection of any type.
+                                Enter at your own risk.</li><br>
+                        </ul><br>
+                        <p>
+                            <b>
+                                <span class="heading-number">6.</span>
+                                <span class="heading-text">Territory Capture or Defense:</span>
+                            </b>
+                        </p>
+                        <ul style="margin: 15px 0 0 20px; line-height: 2; text-align: left; display: inline-block;">
+                            <li>RoE does not apply in contested territories.</li><br>
+                        </ul>
+                    </div>
+                    <div class="content-image">
+                        <img src="images/territory.png" alt="territory icon">
+                    </div>
+                </div>
+
+                <!-- Warships -->
+                <div class="content-section">
+                    <div class="content-text">
+                        <p>
+                            <b>
+                                <span class="heading-number">7.</span>
+                                <span class="heading-text">Warships:</span>
+                            </b>
+                        </p>
+                        <ul style="margin: 15px 0 0 20px; line-height: 2; text-align: left; display: inline-block;">
+                            <li>Do not have any protections except as defined in 2 - 4 above.</li>
+                        </ul>
+                    </div>
+                    <div class="content-image">
+                        <img src="images/battleship.png" alt="battleship icon">
+                        <img src="images/explorer.png" alt="explorer icon">
+                        <img src="images/interceptor.png" alt="interceptor icon">
+                    </div>
+                </div>
+                <h2 style="text-align: center;">Rule of Thumb: <u>If you are unsure whether to hit someone, stay within RoE</u>.</h2>
             </div>
 
             <!-- Diplomacy Tab -->
