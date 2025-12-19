@@ -288,6 +288,19 @@ body {
     font-size: 0.9em;
 }
 
+.roe-title {
+    color: var(--accent-gold);
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+.roe-subtitle {
+    color: var(--accent-gold);
+    text-align: center;
+    margin-top: 0;
+}
+
+
 @media (max-width: 768px) {
     .header h1 {
         font-size: 1.8em;
