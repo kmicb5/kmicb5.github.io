@@ -89,7 +89,7 @@ window.addEventListener('load', function() {
     }, 10);
 });
 
-        // lightbox functionality for images
+// lightbox functionality for images
 function openLightbox(element) {
     const modal = document.getElementById('lightbox-modal');
     const modalImg = document.getElementById('lightbox-image');
@@ -97,6 +97,13 @@ function openLightbox(element) {
     
     modal.style.display = 'block';
     modalImg.src = src;
+}
+
+function openLightboxImg(img) {
+    const modal = document.getElementById('lightbox-modal');
+    const modalImg = document.getElementById('lightbox-image');
+    modal.style.display = 'block';
+    modalImg.src = img.src;
 }
 
 function closeLightbox() {
@@ -110,12 +117,4 @@ window.addEventListener('click', function(event) {
     if (event.target === modal) {
         closeLightbox();
     }
-});
-
-// make all .clickable elements open the lightbox
-document.querySelectorAll('.content-image.clickable').forEach(img => {
-    img.style.cursor = 'pointer';
-    img.addEventListener('click', function() {
-        openLightbox(this);
-    });
 });
