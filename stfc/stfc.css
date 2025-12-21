@@ -44,19 +44,31 @@ body {
 }
 
 .header {
-    background: black;
-    padding: 30px 20px;
-    border-bottom: 2px solid var(--accent-gold);
-    text-align: center;
+  background-image: url('images/xmaslights.png');
+  background-repeat: repeat-x;
+  background-position: top center;
+  background-size: auto 80px;
+  padding: 100px 45px 30px 45px;
+  border-bottom: 2px solid var(--accent-gold);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
 }
 
 .header h1 {
+    flex: 1;
+    text-align: center;
     font-size: 2.5em;
     font-weight: 300;
     letter-spacing: 3px;
     color: var(--accent-gold);
     text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
     margin-bottom: 10px;
+}
+
+.header-logo {
+    flex: 0 0 auto;
 }
 
 .header p {
@@ -80,6 +92,7 @@ body {
   width: 100%;
   color: var(--accent-gold);
   font-size: 1.9rem;
+  margin-top: 15px;
 }
 
 .marquee span {
@@ -213,7 +226,6 @@ body {
 .content-text p {
     line-height: 1.8;
     color: var(--text-light);
-    /* margin-bottom: 15px; */
     font-size: 1.3em;
 }
 
@@ -256,7 +268,6 @@ body {
     text-shadow: 0 0 5px rgba(0, 255, 0, 0.6);
 }
 
-/* Lightbox Modal */
 .lightbox {
     display: none;
     position: fixed;
@@ -323,7 +334,6 @@ body {
     text-align: center;
     margin-top: 0;
 }
-
 
 @media (max-width: 768px) {
     .header h1 {
