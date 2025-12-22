@@ -156,19 +156,37 @@ function initProbes() {
     const vpWidth = () => window.innerWidth;
     const vpHeight = () => window.innerHeight;
 
-    const state = probes.map((img, idx) => ({
-        el: img,
-        x: Math.random() * vpWidth(),
-        y: Math.random() * vpHeight(),
-        // Much faster speeds for sweeping motion
-        vx: (Math.random() * 0.15 + 0.05) * (Math.random() < 0.5 ? 1 : -1),
-        vy: (Math.random() * 0.15 + 0.05) * (Math.random() < 0.5 ? 1 : -1),
-        time: Math.random() * Math.PI * 2,
-        targetX: Math.random() * vpWidth(),
-        targetY: Math.random() * vpHeight(),
-        pathTimer: 0,
-        pathDuration: Math.random() * 8000 + 12000  // 4-7 seconds per path
-    }));
+    const state = probes.map((img, idx) => {
+        const w = vpWidth();
+        const h = vpHeight();
+        const startX = Math.random() * w;
+        const startY = Math.random() * h;
+
+        // pick an initial target at least half-screen away
+        let targetX = Math.random() * w;
+        let targetY = Math.random() * h;
+        const minDist = Math.min(w, h) * 0.4;
+        let dx = targetX - startX;
+        let dy = targetY - startY;
+
+        if (Math.hypot(dx, dy) < minDist) {
+            dx = dx || 1;
+            dy = dy || 1;
+            targetX = startX + dx * 1.5;
+            targetY = startY + dy * 1.5;
+        }
+
+        return {
+            el: img,
+            x: startX,
+            y: startY,
+            time: Math.random() * Math.PI * 2,
+            targetX,
+            targetY,
+            pathTimer: Math.random() * 2000, // shorter initial progress
+            pathDuration: Math.random() * 5000 + 6000  // 6-11s per path
+        };
+    });
 
     function tick() {
         const w = vpWidth();
@@ -181,25 +199,16 @@ function initProbes() {
             // switch to new target when path is complete
             if (p.pathTimer > p.pathDuration) {
                 p.pathTimer = 0;
-                p.pathDuration = Math.random() * 3000 + 4000;
-                p.targetX = Math.random() * (w + 400) - 200; // Allow off-screen
-                p.targetY = Math.random() * (h + 400) - 200;
+                p.pathDuration = Math.random() * 4000 + 5000; // 5-9s
+                p.targetX = Math.random() * (w + 300) - 150;
+                p.targetY = Math.random() * (h + 300) - 150;
             }
 
-            // calc progress along current path (0 to 1)
-            const progress = p.pathTimer / p.pathDuration;
-            
-            // easing function for smooth arc motion
-            const easeProgress = Math.sin(progress * Math.PI); // Creates smooth curve
+            // gentle movement toward target with some organic wobble
+            p.x += (p.targetX - p.x) * 0.025 + Math.sin(t * 0.001 + p.time) * 0.2;
+            p.y += (p.targetY - p.y) * 0.025 + Math.cos(t * 0.0008 + p.time) * 0.2;
 
-            // linear interpolation with easing toward target
-            p.x += (p.targetX - p.x) * 0.02 + Math.sin(t * 0.002 + p.time) * 0.3;
-            p.y += (p.targetY - p.y) * 0.02 + Math.cos(t * 0.0015 + p.time) * 0.3;
-
-            const elW = p.el.offsetWidth || 60;
-            const elH = p.el.offsetHeight || 60;
-
-            // warp around screen - allows probes to go off-screen and re-enter
+            // wrap around screen
             if (p.x > w + 100) p.x = -100;
             if (p.x < -100) p.x = w + 100;
             if (p.y > h + 100) p.y = -100;
@@ -208,9 +217,9 @@ function initProbes() {
             p.el.style.left = p.x + 'px';
             p.el.style.top = p.y + 'px';
             
-            // calc angle based on velocity for banking effect
+            // smooth banking based on direction
             const angle = Math.atan2(p.targetY - p.y, p.targetX - p.x) * (180 / Math.PI);
-            p.el.style.transform = `rotate(${angle + Math.sin(t * 0.003 + p.time) * 8}deg)`;
+            p.el.style.transform = `rotate(${angle + Math.sin(t * 0.002 + p.time) * 5}deg)`;
         });
 
         requestAnimationFrame(tick);
