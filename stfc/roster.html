@@ -2,107 +2,170 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>BORG Academy Deployment Roster</title>
-    <!-- Supabase JS Client -->
+    <title>BORG Armada Roster</title>
+    <!-- supabase's js client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        :root {
-            --borg-green: #2ecc71;
-            --borg-dark: #1a1a1a;
-            --alert-red: #e74c3c;
-        }
-        body {
-            background-color: #000;
-            color: #eee;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 20px;
-        }
-        h1 { text-align: center; color: var(--borg-green); text-transform: uppercase; letter-spacing: 2px; }
-        
-        /* 2x2 Grid Layout */
-        .main-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        /* Individual Area Card */
-        .area-card {
-            border: 1px solid #333;
-            background: #111;
-            padding: 15px;
-            border-radius: 4px;
-        }
-        .area-title {
-            color: var(--borg-green);
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
+    :root {
+        --borg-green: green;
+        --borg-dark: #1a1a1a;
+        --alert-red: red;
+    }
 
-        /* Slots */
-        .slot-row {
-            display: flex;
-            align-items: center;
-            margin-bottom: 8px;
-            gap: 10px;
-        }
-        .slot-label { width: 60px; font-mono: true; color: #888; }
-        select {
-            flex-grow: 1;
-            padding: 5px;
-            background: #222;
-            color: white;
-            border: 1px solid #444;
-        }
-        select:disabled {
-            background: #000;
-            color: #555;
-            border-color: #222;
-            cursor: not-allowed;
-        }
+    body {
+        background-color: #000;
+        color: #eee;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        padding: 20px;
+    }
+    
+    h1 {
+        text-align: center;
+        color: var(--borg-green);
+        letter-spacing: 2px;
+    }
+    
+    .main-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 100px 100px;
+        max-width: 1300px;
+        margin: 100px auto;
+    }
+    
+    .area-card {
+        border: 1px solid #333;
+        background: #111;
+        padding: 15px;
+        border-radius: 4px;
+    }
 
-        /* Controls */
-        .controls {
-            margin-top: 15px;
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-            border-top: 1px solid #222;
-            padding-top: 10px;
-        }
-        button {
-            padding: 8px 16px;
-            cursor: pointer;
-            border: none;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-        .btn-clear { background: #555; color: white; }
-        .btn-edit { background: #e67e22; color: white; }
-        .btn-engage { background: var(--borg-green); color: black; }
-        
-        /* Mobile adjustment */
-        @media (max-width: 768px) { .main-grid { grid-template-columns: 1fr; } }
-    </style>
+    .area-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #333;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+
+    .area-title {
+        color: var(--borg-green);
+        font-weight: bold;
+        font-size: 1.1em;
+    }
+
+    .header-controls {
+        display: flex;
+        gap: 10px;
+    }
+
+    .header-select {
+        background: #000;
+        color: #aaa;
+        border: 1px solid #444;
+        padding: 4px;
+        font-size: 0.85em;
+        border-radius: 3px;
+    }
+
+    .slot-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+        gap: 10px;
+    }
+
+    .slot-label {
+        width: 60px;
+        font-family: monospace;
+        color: #888;
+    }
+
+    .slot-select {
+        flex-grow: 1;
+        padding: 5px;
+        background: #222;
+        color: white;
+        border: 1px solid #444;
+    }
+
+    .slot-select:disabled {
+        background: #000;
+        color: #555;
+        border-color: #222;
+        cursor: not-allowed;
+    }
+
+    .controls {
+        margin-top: 15px;
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        border-top: 1px solid #222;
+        padding-top: 10px;
+    }
+
+    button {
+        padding: 8px 16px;
+        cursor: pointer;
+        border: none;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .btn-clear {
+        background: #555;
+        color: white;
+    }
+
+    .btn-edit {
+        background: #d4af37;
+        color: white;
+    }
+
+    .btn-engage {
+        background: var(--borg-green);
+        color: black;
+    }
+
+    .rarity-select {
+        border: 2px solid #444;
+        background-color: #000;
+        font-weight: bold;
+        transition: border-color 0.3s ease;
+    }
+
+    .rarity-select option {
+        background-color: #000;
+        color: #fff;
+    }
+
+    @media (max-width: 768px) {
+        .main-grid { grid-template-columns: 1fr; }
+    }
+</style>
 </head>
 <body>
 
-<h1>Armada Interest Roster</h1>
+<h1>[BORG]<br><br>Armada Rosters</h1>
 
 <div class="main-grid" id="grid-container">
-    <!-- Areas will be injected here by JS -->
+    <!-- this area will be injected by js -->
 </div>
 
 <script>
-    // --- CONFIGURATION ---
     const SUPABASE_URL = 'https://epvstlihlqldshwvfhib.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_XhtHHiKPIAYzi0YmBF9yEg_F1y_m3gV';
     
-    // Star Trek Names for Dropdown
+    // Store area settings locally for quick lookup
+    const AREA_STATE = { 
+        1: { rarity: '' }, 
+        2: { rarity: '' }, 
+        3: { rarity: '' }, 
+        4: { rarity: '' } 
+    };
+
     const CREW_NAMES = [
         "", "Picard", "Riker", "Data", "Worf", "La Forge", "Crusher", "Troi", 
         "Sisko", "Kira", "Dax", "Bashir", "O'Brien", "Quark", 
@@ -110,33 +173,50 @@
         "Burnham", "Saru", "Stamets", "Tilly", "Culber"
     ];
 
+    const RARITY_OPTS = ["Epic", "Rare", "Uncommon"];
+    const TYPE_OPTS = ["Borg", "Dominion", "FKR", "Formation", "Temporal"];
+
     const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    // --- INITIALIZATION ---
     async function init() {
         renderGrid();
         loadData();
         setupRealtime();
     }
 
-    // 1. Render the HTML Structure (4 Areas x 6 Slots)
     function renderGrid() {
         const container = document.getElementById('grid-container');
+        container.innerHTML = '';
+        
         for (let a = 1; a <= 4; a++) {
+            const rarityOptions = `<option value=""></option>` + RARITY_OPTS.map(o => `<option value="${o}">${o}</option>`).join('');
+            const typeOptions = `<option value=""></option>` + TYPE_OPTS.map(o => `<option value="${o}">${o}</option>`).join('');
+
             const areaHtml = `
                 <div class="area-card" id="area-${a}">
-                    <div class="area-title">SECTOR ${a} ASSIGNMENTS</div>
+                    <div class="area-header">
+                        <div class="area-title">Armada ${a} Signup</div>
+                        <div class="header-controls">
+                            <select class="header-select rarity-select" id="rarity-${a}" onchange="handleHeaderChange(${a}, 'rarity', this.value)">
+                                ${rarityOptions}
+                            </select>
+                            <select class="header-select" id="type-${a}" onchange="handleHeaderChange(${a}, 'ship_type', this.value)">
+                                ${typeOptions}
+                            </select>
+                        </div>
+                    </div>
                     <div id="slots-area-${a}">
                         ${generateSlotsHtml(a)}
                     </div>
                     <div class="controls">
                         <button class="btn-clear" onclick="handleClear(${a})">Clear</button>
                         <button class="btn-edit" onclick="handleEdit(${a})">Edit</button>
-                        <button class="btn-engage" onclick="handleEngage(${a})">Engage</button>
+                        <button id="btn-engage-${a}" class="btn-engage" onclick="handleEngage(${a})">Engage</button>
                     </div>
                 </div>
             `;
             container.innerHTML += areaHtml;
+            updateButtonStates(a);
         }
     }
 
@@ -147,7 +227,7 @@
             html += `
                 <div class="slot-row">
                     <span class="slot-label">SLOT ${s}</span>
-                    <select id="input-${areaId}-${s}" onchange="handleSlotChange(${areaId}, ${s}, this.value)">
+                    <select class="slot-select" id="input-${areaId}-${s}" onchange="handleSlotChange(${areaId}, ${s}, this.value)">
                         ${options}
                     </select>
                 </div>
@@ -156,102 +236,227 @@
         return html;
     }
 
-    // 2. Load Initial Data
     async function loadData() {
-        const { data, error } = await client.from('signup_slots').select('*');
-        if (error) console.error('Error loading:', error);
-        else data.forEach(row => updateSlotUI(row));
+        const {  slots } = await client.from('signup_slots').select('*');
+        if (slots) slots.forEach(row => updateSlotUI(row));
+
+        const {  settings } = await client.from('area_settings').select('*');
+        if (settings) settings.forEach(row => updateHeaderUI(row));
     }
 
-    // 3. Setup Realtime Subscription
     function setupRealtime() {
         client.channel('public:signup_slots')
             .on('postgres_changes', { event: '*', schema: 'public', table: 'signup_slots' }, payload => {
-                console.log('Change received!', payload);
                 if (payload.new) updateSlotUI(payload.new);
+            })
+            .subscribe();
+
+        client.channel('public:area_settings')
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'area_settings' }, payload => {
+                if (payload.new) updateHeaderUI(payload.new);
             })
             .subscribe();
     }
 
-    // --- UI UPDATER ---
     function updateSlotUI(row) {
         const select = document.getElementById(`input-${row.area_id}-${row.slot_id}`);
         if (!select) return;
 
-        // Set value
         select.value = row.user_name || "";
+        select.disabled = row.is_locked; 
 
-        // Logic: 
-        // 1. If Locked ("Engaged"), disable input.
-        // 2. If name is present, it's "taken".
-        //    (For this simple version, we only disable if explicitly LOCKED by Engage button)
+        updateSlotBorder(select, row.is_locked, !!row.user_name, row.area_id);
         
-        select.disabled = row.is_locked;
-        
-        // Optional: Visual cue if slot is taken but not locked
-        select.style.borderColor = row.user_name ? '#2ecc71' : '#444';
-        if (row.is_locked) select.style.borderColor = '#e74c3c'; // Red border if locked
+        updateButtonStates(row.area_id);
     }
 
-    // --- ACTIONS ---
-
-    // A. Dropdown Change (Immediate Save)
-    window.handleSlotChange = async (area, slot, value) => {
-        // When a user selects a name, we update the DB immediately.
-        // We do NOT set is_locked=true yet, only "Engage" does that per your request.
-        // However, user said "immediately locks in db", so we can interpret that 
-        // as "User is set". 
+    function updateHeaderUI(row) {
+        const raritySel = document.getElementById(`rarity-${row.area_id}`);
+        const typeSel = document.getElementById(`type-${row.area_id}`);
         
+        if (typeSel) typeSel.value = row.ship_type;
+        if (raritySel) {
+            raritySel.value = row.rarity;
+            updateRarityColor(raritySel);
+        }
+
+        if (AREA_STATE[row.area_id]) {
+            AREA_STATE[row.area_id].rarity = row.rarity;
+        }
+
+        refreshAreaSlots(row.area_id);
+
+        updateButtonStates(row.area_id);
+    }
+
+    window.handleHeaderChange = async (area, field, value) => {
+        if (field === 'rarity') {
+            const el = document.getElementById(`rarity-${area}`);
+            updateRarityColor(el);
+            if (AREA_STATE[area]) AREA_STATE[area].rarity = value;
+        }
+
+        updateButtonStates(area);
+
+        const updateObj = {};
+        updateObj[field] = value; 
+
+        const { error } = await client
+            .from('area_settings')
+            .update(updateObj)
+            .eq('area_id', area);
+            
+        if (error) console.error("Header update failed:", error);
+    };
+
+
+    window.handleSlotChange = async (area, slot, value) => {
         const { error } = await client
             .from('signup_slots')
             .update({ user_name: value })
             .match({ area_id: area, slot_id: slot });
 
         if (error) alert("Error saving assignment");
+        
+        updateButtonStates(area);
+        
+        const select = document.getElementById(`input-${area}-${slot}`);
+        if(select) {
+             updateSlotBorder(select, false, value !== "", area);
+        }
     };
 
-    // B. Engage: Locks all slots in this area that have names
+
     window.handleEngage = async (area) => {
-        // 1. Find all slots in this area that have a user_name
-        // We do this via specific update logic
-        
-        // Update: Set is_locked = true WHERE area_id = X AND user_name IS NOT NULL
-        // Note: Supabase JS simple update filters are often "AND". 
-        // For complex "WHERE X AND Y" updates, we use match() or filter chaining.
-        
         const { error } = await client
             .from('signup_slots')
             .update({ is_locked: true })
             .eq('area_id', area)
-            .neq('user_name', null); // Only lock filled slots
-
-        if (error) console.error(error);
+            .neq('user_name', null); 
     };
 
-    // C. Edit: Unlocks slots in this area (is_locked = false)
     window.handleEdit = async (area) => {
         const { error } = await client
             .from('signup_slots')
             .update({ is_locked: false })
             .eq('area_id', area);
-            
-        if (error) console.error(error);
     };
 
-    // D. Clear: Clears names and Unlocks for this area
     window.handleClear = async (area) => {
-        const { error } = await client
-            .from('signup_slots')
+        await client.from('signup_slots')
             .update({ user_name: null, is_locked: false })
             .eq('area_id', area);
-
-        if (error) console.error(error);
+        
+        await client.from('area_settings')
+            .update({ rarity: null, ship_type: null })
+            .eq('area_id', area);
     };
 
-    // Start
+    function updateRarityColor(element) {
+        if (!element) return;
+        const val = element.value;
+
+        element.style.borderWidth = "2px"; 
+        
+        if (val === 'Epic') {
+            element.style.borderColor = '#9b59b6'; // purple
+        } else if (val === 'Rare') {
+            element.style.borderColor = '#3498db'; // blue
+        } else if (val === 'Uncommon') {
+            element.style.borderColor = '#2ecc71'; // green
+        } else {
+            element.style.borderColor = '#444';    // default grey
+        }
+    }
+
+    function refreshAreaSlots(areaId) {
+        // Find all selects in this area
+        for (let s = 1; s <= 6; s++) {
+            const select = document.getElementById(`input-${areaId}-${s}`);
+            if (select) {
+                const isLocked = select.disabled;
+                const hasName = select.value !== "";
+                updateSlotBorder(select, isLocked, hasName, areaId);
+            }
+        }
+    }
+
+    function updateSlotBorder(element, isLocked, hasName, areaId) {
+        if (!hasName) {
+            element.style.borderColor = '#444'; // Empty
+            return;
+        }
+
+        if (isLocked) {
+            // ENGAGED! Use the Area's Rarity Color
+            const rarity = AREA_STATE[areaId].rarity;
+            
+            if (rarity === 'Epic') {
+                element.style.borderColor = '#9b59b6'; // Purple
+            } else if (rarity === 'Rare') {
+                element.style.borderColor = '#3498db'; // Blue
+            } else if (rarity === 'Uncommon') {
+                element.style.borderColor = '#2ecc71'; // Green
+            } else {
+                element.style.borderColor = '#e74c3c'; // Default Red (if no rarity chosen)
+            }
+        } else {
+            // Not locked, just filled. Standard Green.
+            element.style.borderColor = '#2ecc71'; 
+        }
+    }
+
+    function updateButtonStates(areaId) {
+        const btnEngage = document.getElementById(`btn-engage-${areaId}`);
+        const btnEdit = document.querySelector(`#area-${areaId} .btn-edit`); // Find Edit button in this area
+        
+        if (!btnEngage || !btnEdit) return;
+
+        const rarityVal = (AREA_STATE[areaId] && AREA_STATE[areaId].rarity) ? AREA_STATE[areaId].rarity : "";
+        const typeEl = document.getElementById(`type-${areaId}`);
+        const typeVal = typeEl ? typeEl.value : "";
+        
+        let hasName = false;
+        let isLocked = false;
+        
+        for (let s = 1; s <= 6; s++) {
+            const slotEl = document.getElementById(`input-${areaId}-${s}`);
+            if (slotEl) {
+                if (slotEl.value && slotEl.value.trim() !== "") hasName = true;
+                if (slotEl.disabled) isLocked = true;
+            }
+        }
+
+        if (isLocked) {
+            btnEdit.disabled = false;
+            btnEdit.style.opacity = "1";
+            btnEdit.style.cursor = "pointer";
+            
+            btnEngage.disabled = true;
+            btnEngage.style.opacity = "0.5";
+            btnEngage.style.cursor = "not-allowed";
+            btnEngage.textContent = "LOCKED";
+            return;
+        } else {
+            btnEdit.disabled = true;
+            btnEdit.style.opacity = "0.5";
+            btnEdit.style.cursor = "not-allowed";
+            btnEngage.textContent = "ENGAGE";
+        }
+        const isReady = (rarityVal !== "") && (typeVal !== "") && hasName;
+
+        if (isReady) {
+            btnEngage.disabled = false;
+            btnEngage.style.opacity = "1";
+            btnEngage.style.cursor = "pointer";
+        } else {
+            btnEngage.disabled = true;
+            btnEngage.style.opacity = "0.5"; 
+            btnEngage.style.cursor = "not-allowed";
+        }
+    }
+
     init();
-
 </script>
-
 </body>
 </html>
