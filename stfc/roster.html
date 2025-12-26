@@ -157,8 +157,7 @@
 <script>
     const SUPABASE_URL = 'https://epvstlihlqldshwvfhib.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_XhtHHiKPIAYzi0YmBF9yEg_F1y_m3gV';
-    
-    // Store area settings locally for quick lookup
+
     const AREA_STATE = { 
         1: { rarity: '' }, 
         2: { rarity: '' }, 
@@ -343,6 +342,10 @@
     };
 
     window.handleClear = async (area) => {
+        if (!confirm("Clear roster?")) {
+            return;
+        }
+
         await client.from('signup_slots')
             .update({ user_name: null, is_locked: false })
             .eq('area_id', area);
@@ -370,7 +373,6 @@
     }
 
     function refreshAreaSlots(areaId) {
-        // Find all selects in this area
         for (let s = 1; s <= 6; s++) {
             const select = document.getElementById(`input-${areaId}-${s}`);
             if (select) {
@@ -383,32 +385,30 @@
 
     function updateSlotBorder(element, isLocked, hasName, areaId) {
         if (!hasName) {
-            element.style.borderColor = '#444'; // Empty
+            element.style.borderColor = '#444';
             return;
         }
 
         if (isLocked) {
-            // ENGAGED! Use the Area's Rarity Color
             const rarity = AREA_STATE[areaId].rarity;
             
             if (rarity === 'Epic') {
-                element.style.borderColor = '#9b59b6'; // Purple
+                element.style.borderColor = '#9b59b6'; // purple
             } else if (rarity === 'Rare') {
-                element.style.borderColor = '#3498db'; // Blue
+                element.style.borderColor = '#3498db'; // blue
             } else if (rarity === 'Uncommon') {
-                element.style.borderColor = '#2ecc71'; // Green
+                element.style.borderColor = '#2ecc71'; // green
             } else {
                 element.style.borderColor = '#e74c3c'; // Default Red (if no rarity chosen)
             }
         } else {
-            // Not locked, just filled. Standard Green.
             element.style.borderColor = '#2ecc71'; 
         }
     }
 
     function updateButtonStates(areaId) {
         const btnEngage = document.getElementById(`btn-engage-${areaId}`);
-        const btnEdit = document.querySelector(`#area-${areaId} .btn-edit`); // Find Edit button in this area
+        const btnEdit = document.querySelector(`#area-${areaId} .btn-edit`);
         
         if (!btnEngage || !btnEdit) return;
 
