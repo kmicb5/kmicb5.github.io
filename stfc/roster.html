@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BORG Academy Deployment Roster</title>
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --borg-green: #2ecc71;
+            --borg-dark: #1a1a1a;
+            --alert-red: #e74c3c;
+        }
+        body {
+            background-color: #000;
+            color: #eee;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+        h1 { text-align: center; color: var(--borg-green); text-transform: uppercase; letter-spacing: 2px; }
+        
+        /* 2x2 Grid Layout */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Individual Area Card */
+        .area-card {
+            border: 1px solid #333;
+            background: #111;
+            padding: 15px;
+            border-radius: 4px;
+        }
+        .area-title {
+            color: var(--borg-green);
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        /* Slots */
+        .slot-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            gap: 10px;
+        }
+        .slot-label { width: 60px; font-mono: true; color: #888; }
+        select {
+            flex-grow: 1;
+            padding: 5px;
+            background: #222;
+            color: white;
+            border: 1px solid #444;
+        }
+        select:disabled {
+            background: #000;
+            color: #555;
+            border-color: #222;
+            cursor: not-allowed;
+        }
+
+        /* Controls */
+        .controls {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            border-top: 1px solid #222;
+            padding-top: 10px;
+        }
+        button {
+            padding: 8px 16px;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .btn-clear { background: #555; color: white; }
+        .btn-edit { background: #e67e22; color: white; }
+        .btn-engage { background: var(--borg-green); color: black; }
+        
+        /* Mobile adjustment */
+        @media (max-width: 768px) { .main-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<h1>Armada Interest Roster</h1>
+
+<div class="main-grid" id="grid-container">
+    <!-- Areas will be injected here by JS -->
+</div>
+
+<script>
+    // --- CONFIGURATION ---
+    const SUPABASE_URL = 'https://epvstlihlqldshwvfhib.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_XhtHHiKPIAYzi0YmBF9yEg_F1y_m3gV';
+    
+    // Star Trek Names for Dropdown
+    const CREW_NAMES = [
+        "", "Picard", "Riker", "Data", "Worf", "La Forge", "Crusher", "Troi", 
+        "Sisko", "Kira", "Dax", "Bashir", "O'Brien", "Quark", 
+        "Janeway", "Chakotay", "Tuvok", "Paris", "Torres", "Kim", "Seven of Nine",
+        "Burnham", "Saru", "Stamets", "Tilly", "Culber"
+    ];
+
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // --- INITIALIZATION ---
+    async function init() {
+        renderGrid();
+        loadData();
+        setupRealtime();
+    }
+
+    // 1. Render the HTML Structure (4 Areas x 6 Slots)
+    function renderGrid() {
+        const container = document.getElementById('grid-container');
+        for (let a = 1; a <= 4; a++) {
+            const areaHtml = `
+                <div class="area-card" id="area-${a}">
+                    <div class="area-title">SECTOR ${a} ASSIGNMENTS</div>
+                    <div id="slots-area-${a}">
+                        ${generateSlotsHtml(a)}
+                    </div>
+                    <div class="controls">
+                        <button class="btn-clear" onclick="handleClear(${a})">Clear</button>
+                        <button class="btn-edit" onclick="handleEdit(${a})">Edit</button>
+                        <button class="btn-engage" onclick="handleEngage(${a})">Engage</button>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += areaHtml;
+        }
+    }
+
+    function generateSlotsHtml(areaId) {
+        let html = '';
+        for (let s = 1; s <= 6; s++) {
+            const options = CREW_NAMES.map(n => `<option value="${n}">${n}</option>`).join('');
+            html += `
+                <div class="slot-row">
+                    <span class="slot-label">SLOT ${s}</span>
+                    <select id="input-${areaId}-${s}" onchange="handleSlotChange(${areaId}, ${s}, this.value)">
+                        ${options}
+                    </select>
+                </div>
+            `;
+        }
+        return html;
+    }
+
+    // 2. Load Initial Data
+    async function loadData() {
+        const { data, error } = await supabase.from('signup_slots').select('*');
+        if (error) console.error('Error loading:', error);
+        else data.forEach(row => updateSlotUI(row));
+    }
+
+    // 3. Setup Realtime Subscription
+    function setupRealtime() {
+        supabase.channel('public:signup_slots')
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'signup_slots' }, payload => {
+                console.log('Change received!', payload);
+                if (payload.new) updateSlotUI(payload.new);
+            })
+            .subscribe();
+    }
+
+    // --- UI UPDATER ---
+    function updateSlotUI(row) {
+        const select = document.getElementById(`input-${row.area_id}-${row.slot_id}`);
+        if (!select) return;
+
+        // Set value
+        select.value = row.user_name || "";
+
+        // Logic: 
+        // 1. If Locked ("Engaged"), disable input.
+        // 2. If name is present, it's "taken".
+        //    (For this simple version, we only disable if explicitly LOCKED by Engage button)
+        
+        select.disabled = row.is_locked;
+        
+        // Optional: Visual cue if slot is taken but not locked
+        select.style.borderColor = row.user_name ? '#2ecc71' : '#444';
+        if (row.is_locked) select.style.borderColor = '#e74c3c'; // Red border if locked
+    }
+
+    // --- ACTIONS ---
+
+    // A. Dropdown Change (Immediate Save)
+    window.handleSlotChange = async (area, slot, value) => {
+        // When a user selects a name, we update the DB immediately.
+        // We do NOT set is_locked=true yet, only "Engage" does that per your request.
+        // However, user said "immediately locks in db", so we can interpret that 
+        // as "User is set". 
+        
+        const { error } = await supabase
+            .from('signup_slots')
+            .update({ user_name: value })
+            .match({ area_id: area, slot_id: slot });
+
+        if (error) alert("Error saving assignment");
+    };
+
+    // B. Engage: Locks all slots in this area that have names
+    window.handleEngage = async (area) => {
+        // 1. Find all slots in this area that have a user_name
+        // We do this via specific update logic
+        
+        // Update: Set is_locked = true WHERE area_id = X AND user_name IS NOT NULL
+        // Note: Supabase JS simple update filters are often "AND". 
+        // For complex "WHERE X AND Y" updates, we use match() or filter chaining.
+        
+        const { error } = await supabase
+            .from('signup_slots')
+            .update({ is_locked: true })
+            .eq('area_id', area)
+            .neq('user_name', null); // Only lock filled slots
+
+        if (error) console.error(error);
+    };
+
+    // C. Edit: Unlocks slots in this area (is_locked = false)
+    window.handleEdit = async (area) => {
+        const { error } = await supabase
+            .from('signup_slots')
+            .update({ is_locked: false })
+            .eq('area_id', area);
+            
+        if (error) console.error(error);
+    };
+
+    // D. Clear: Clears names and Unlocks for this area
+    window.handleClear = async (area) => {
+        const { error } = await supabase
+            .from('signup_slots')
+            .update({ user_name: null, is_locked: false })
+            .eq('area_id', area);
+
+        if (error) console.error(error);
+    };
+
+    // Start
+    init();
+
+</script>
+
+</body>
+</html>
