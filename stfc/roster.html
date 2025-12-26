@@ -110,7 +110,7 @@
         "Burnham", "Saru", "Stamets", "Tilly", "Culber"
     ];
 
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     // --- INITIALIZATION ---
     async function init() {
@@ -158,14 +158,14 @@
 
     // 2. Load Initial Data
     async function loadData() {
-        const { data, error } = await supabase.from('signup_slots').select('*');
+        const { data, error } = await client.from('signup_slots').select('*');
         if (error) console.error('Error loading:', error);
         else data.forEach(row => updateSlotUI(row));
     }
 
     // 3. Setup Realtime Subscription
     function setupRealtime() {
-        supabase.channel('public:signup_slots')
+        client.channel('public:signup_slots')
             .on('postgres_changes', { event: '*', schema: 'public', table: 'signup_slots' }, payload => {
                 console.log('Change received!', payload);
                 if (payload.new) updateSlotUI(payload.new);
@@ -202,7 +202,7 @@
         // However, user said "immediately locks in db", so we can interpret that 
         // as "User is set". 
         
-        const { error } = await supabase
+        const { error } = await client
             .from('signup_slots')
             .update({ user_name: value })
             .match({ area_id: area, slot_id: slot });
@@ -219,7 +219,7 @@
         // Note: Supabase JS simple update filters are often "AND". 
         // For complex "WHERE X AND Y" updates, we use match() or filter chaining.
         
-        const { error } = await supabase
+        const { error } = await client
             .from('signup_slots')
             .update({ is_locked: true })
             .eq('area_id', area)
@@ -230,7 +230,7 @@
 
     // C. Edit: Unlocks slots in this area (is_locked = false)
     window.handleEdit = async (area) => {
-        const { error } = await supabase
+        const { error } = await client
             .from('signup_slots')
             .update({ is_locked: false })
             .eq('area_id', area);
@@ -240,7 +240,7 @@
 
     // D. Clear: Clears names and Unlocks for this area
     window.handleClear = async (area) => {
-        const { error } = await supabase
+        const { error } = await client
             .from('signup_slots')
             .update({ user_name: null, is_locked: false })
             .eq('area_id', area);
