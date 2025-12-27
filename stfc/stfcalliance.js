@@ -4,7 +4,7 @@ const visibleColumns = {};
 let currentSort = { column: null, ascending: true };
 let allPlayers = [];
 
-const TOURNAMENT_COLUMNS = ["Bracket", "Score", "Tasks", "Active Task", "Position"];
+const TOURNAMENT_COLUMNS = ["bracket", "score", "tasks", "activeTask", "position"];
 
 async function fetchAllianceData() {
   try {
