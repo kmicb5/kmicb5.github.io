@@ -4,14 +4,16 @@ async function fetchAllianceData() {
   try {
     const res = await fetch(ALLIANCE_WORKER_URL);
     const html = await res.text();
-    console.log(html); // debug: confirm the raw Worker HTML
 
-    // Extract player array (values) - adjust regex if site changes
+    // DEBUG: confirm raw HTML
+    console.log("Worker HTML fetched:", html);
+
+    // Regex to extract the values array
     const arrayMatch = html.match(/\[(?:\".*?\"|[0-9.]+,?)+\]/);
     if (!arrayMatch) return console.error("Player array not found.");
     const values = JSON.parse(arrayMatch[0]);
 
-    // Extract field map
+    // Regex to extract the field map
     const mapMatch = html.match(/\{(?:\s*\".*?\":\d+,?)+\}/);
     if (!mapMatch) return console.error("Field map not found.");
     const fieldMap = JSON.parse(mapMatch[0]);
@@ -28,6 +30,7 @@ async function fetchAllianceData() {
       players.push(player);
     }
 
+    // Call your LCARS render function
     renderRoster(players);
 
   } catch (err) {
@@ -35,8 +38,8 @@ async function fetchAllianceData() {
   }
 }
 
-// Call fetch once DOM is ready
+// Ensure DOM is ready before rendering
 document.addEventListener("DOMContentLoaded", () => {
-  fetchAllianceData();
+  fetchAllianceData(); // initial load
   setInterval(fetchAllianceData, 5 * 60 * 1000); // refresh every 5 min
 });
