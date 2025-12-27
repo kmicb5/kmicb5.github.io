@@ -76,6 +76,20 @@
         gap: 10px;
     }
 
+    .slot-status {
+        margin-left: auto;
+        display: flex;
+        justify-content: space-between;
+        width: 180px;
+        font-size: 0.75rem;
+        color: #aaa;
+        gap: 0;
+    }
+
+    .slot-status input[type="radio"] {
+        transform: scale(0.9);
+    }
+
     .slot-label {
         width: 60px;
         font-family: monospace;
@@ -83,7 +97,8 @@
     }
 
     .slot-select {
-        flex-grow: 1;
+        width: 291px;
+        max-width: 100%;
         padding: 5px;
         background: #222;
         color: white;
@@ -95,6 +110,17 @@
         color: #555;
         border-color: #222;
         cursor: not-allowed;
+    }
+
+    .status-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+    }
+
+    .status-item input[type="radio"] {
+        transform: scale(0.9);
     }
 
     .controls {
@@ -226,9 +252,32 @@
             html += `
                 <div class="slot-row">
                     <span class="slot-label">SLOT ${s}</span>
-                    <select class="slot-select" id="input-${areaId}-${s}" onchange="handleSlotChange(${areaId}, ${s}, this.value)">
+                    <select class="slot-select" id="input-${areaId}-${s}" 
+                            onchange="handleSlotChange(${areaId}, ${s}, this.value)">
                         ${options}
                     </select>
+                    <div class="slot-status" id="status-${areaId}-${s}">
+                        <label class="status-item">
+                            <input type="radio" name="status-${areaId}-${s}" value="not_ready" disabled
+                                onchange="handleStatusChange(${areaId}, ${s}, this.value)">
+                            <span>NR</span>
+                        </label>
+                        <label class="status-item">
+                            <input type="radio" name="status-${areaId}-${s}" value="repairing" disabled
+                                onchange="handleStatusChange(${areaId}, ${s}, this.value)">
+                            <span>RP</span>
+                        </label>
+                        <label class="status-item">
+                            <input type="radio" name="status-${areaId}-${s}" value="omw" disabled
+                                onchange="handleStatusChange(${areaId}, ${s}, this.value)">
+                            <span>OMW</span>
+                        </label>
+                        <label class="status-item">
+                            <input type="radio" name="status-${areaId}-${s}" value="ready" disabled
+                                onchange="handleStatusChange(${areaId}, ${s}, this.value)">
+                            <span>RDY</span>
+                        </label>
+                    </div>
                 </div>
             `;
         }
@@ -262,10 +311,17 @@
         if (!select) return;
 
         select.value = row.user_name || "";
-        select.disabled = row.is_locked; 
+        select.disabled = row.is_locked;
 
         updateSlotBorder(select, row.is_locked, !!row.user_name, row.area_id);
-        
+
+        const radios = document.getElementsByName(`status-${row.area_id}-${row.slot_id}`);
+        const slotHasName = !!(row.user_name && row.user_name.trim() !== "");
+        radios.forEach(r => {
+            r.checked = (row.status && r.value === row.status);
+            r.disabled = !slotHasName;
+        });
+
         updateButtonStates(row.area_id);
     }
 
@@ -310,19 +366,50 @@
 
 
     window.handleSlotChange = async (area, slot, value) => {
+        const trimmed = value.trim();
+        const hasName = trimmed !== "";
+
+        const radios = document.getElementsByName(`status-${area}-${slot}`);
+        let existingStatus = null;
+        radios.forEach(r => {
+            if (r.checked) existingStatus = r.value;
+        });
+
+        let newStatus = null;
+        if (hasName) {
+            newStatus = existingStatus || 'not_ready';
+        }
+
         const { error } = await client
             .from('signup_slots')
-            .update({ user_name: value })
+            .update({
+                user_name: hasName ? trimmed : null,
+                status: hasName ? newStatus : null
+            })
             .match({ area_id: area, slot_id: slot });
 
-        if (error) alert("Error saving assignment");
-        
-        updateButtonStates(area);
-        
-        const select = document.getElementById(`input-${area}-${slot}`);
-        if(select) {
-             updateSlotBorder(select, false, value !== "", area);
+        if (error) {
+            alert("Error saving assignment");
+            return;
         }
+
+        updateButtonStates(area);
+
+        const select = document.getElementById(`input-${area}-${slot}`);
+        if (select) {
+            updateSlotBorder(select, select.disabled, hasName, area);
+        }
+
+        radios.forEach(r => {
+            r.disabled = !hasName;
+            if (!hasName) {
+                r.checked = false;
+            } else {
+                if (newStatus === 'not_ready' && r.value === 'not_ready') {
+                    r.checked = true;
+                }
+            }
+        });
     };
 
 
@@ -346,17 +433,19 @@
     };
 
     window.handleClear = async (area) => {
-        if (!confirm("Clear roster?")) {
+        if (!confirm("Are you sure you want to clear this entire sector? This cannot be undone.")) {
             return;
         }
 
         await client.from('signup_slots')
-            .update({ user_name: null, is_locked: false })
+            .update({ user_name: null, is_locked: false, status: null })
             .eq('area_id', area);
-        
+
         await client.from('area_settings')
             .update({ rarity: null, ship_type: null })
             .eq('area_id', area);
+
+        updateButtonStates(area);
     };
 
     function updateRarityColor(element) {
@@ -463,6 +552,17 @@
         }
     }
 
+    window.handleStatusChange = async (area, slot, value) => {
+        const sel = document.getElementById(`input-${area}-${slot}`);
+        if (!sel || !sel.value || sel.value.trim() === "") return;
+
+        const { error } = await client
+            .from('signup_slots')
+            .update({ status: value })
+            .match({ area_id: area, slot_id: slot });
+
+        if (error) console.error('Status update failed:', error);
+    };
 
     init();
 </script>
