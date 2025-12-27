@@ -8,22 +8,16 @@ async function fetchAllianceData() {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
     
-    // Parse as JSON (not text)
-    const playerData = await res.json();
-    console.log("Player ", playerData);
+    const data = await res.json();
+    console.log("Fetched ", data);
     
-    // The structure depends on what stfc.pro returns
-    // Adjust these keys based on the actual data structure
-    const players = playerData.players || playerData.data || playerData.alliance || [];
-    
-    if (!Array.isArray(players) || players.length === 0) {
-      console.error("No player data found");
-      console.log("Full response structure:", playerData);
+    if (!data.players || data.players.length === 0) {
+      console.error("No players found");
       return;
     }
     
-    renderRoster(players);
-    console.log(`Successfully loaded ${players.length} players`);
+    renderRoster(data.players);
+    console.log(`Successfully loaded ${data.players.length} players`);
     
   } catch (err) {
     console.error("Error fetching alliance ", err);
@@ -43,14 +37,14 @@ function renderRoster(players) {
   const table = document.createElement("table");
   table.id = "roster";
   
+  // Create header
   const thead = document.createElement("thead");
   const headerRow = document.createElement("tr");
   
   if (players.length > 0) {
-    const keys = Object.keys(players[0]);
-    keys.forEach(key => {
+    Object.keys(players[0]).forEach(key => {
       const th = document.createElement("th");
-      th.textContent = key.charAt(0).toUpperCase() + key.slice(1);
+      th.textContent = key;
       headerRow.appendChild(th);
     });
   }
@@ -58,6 +52,7 @@ function renderRoster(players) {
   thead.appendChild(headerRow);
   table.appendChild(thead);
   
+  // Create body
   const tbody = document.createElement("tbody");
   players.forEach(player => {
     const row = document.createElement("tr");
