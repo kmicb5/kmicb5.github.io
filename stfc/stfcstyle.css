@@ -88,11 +88,11 @@ table#roster tbody tr:nth-child(even) {
 }
 
 /* TOURNAMENT COLUMNS - GLOWING ORANGE OUTLINE */
-th[data-column="bracket"],
-th[data-column="score"], 
-th[data-column="tasks"],
-th[data-column="activeTask"],
-th[data-column="position"] {
+th[data-column="Bracket"],
+th[data-column="Score"], 
+th[data-column="Tasks"],
+th[data-column="Active Task"],
+th[data-column="Position"] {
   border-left: 3px solid #ff9900 !important;
   box-shadow: 
     0 0 8px #ff9900,
@@ -102,11 +102,11 @@ th[data-column="position"] {
   font-weight: bold;
 }
 
-td[data-column="bracket"],
-td[data-column="score"], 
-td[data-column="tasks"],
-td[data-column="activeTask"],
-td[data-column="position"] {
+td[data-column="Bracket"],
+td[data-column="Score"], 
+td[data-column="Tasks"],
+td[data-column="Active Task"],
+td[data-column="Position"] {
   border-left: 2px solid #ff6600 !important;
   box-shadow: inset 0 0 6px rgba(255, 153, 0, 0.4) !important;
   background: rgba(255, 153, 0, 0.05) !important; /* Very subtle tint */
