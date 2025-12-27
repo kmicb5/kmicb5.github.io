@@ -126,6 +126,23 @@ function renderRoster(players) {
   container.appendChild(table);
 }
 
+function parseFormattedNumber(value) {
+  if (typeof value !== 'string') return parseFloat(value) || 0;
+  
+  const trimmed = value.trim();
+  const match = trimmed.match(/^([\d.]+)([MB]?)$/i);
+  
+  if (!match) return 0;
+  
+  let num = parseFloat(match[1]);
+  const suffix = match[2].toUpperCase();
+  
+  if (suffix === 'M') num *= 1000000;
+  if (suffix === 'B') num *= 1000000000;
+  
+  return num;
+}
+
 function sortTable(column) {
   // Toggle ascending/descending if clicking same column
   if (currentSort.column === column) {
@@ -140,11 +157,11 @@ function sortTable(column) {
     let aVal = a[column];
     let bVal = b[column];
     
-    // Try to parse as numbers
-    const aNum = parseFloat(aVal);
-    const bNum = parseFloat(bVal);
+    // Try formatted numbers first (321.11M, 1.76B)
+    const aNum = parseFormattedNumber(aVal);
+    const bNum = parseFormattedNumber(bVal);
     
-    if (!isNaN(aNum) && !isNaN(bNum)) {
+    if (aNum !== 0 || bNum !== 0) {
       return currentSort.ascending ? aNum - bNum : bNum - aNum;
     }
     
