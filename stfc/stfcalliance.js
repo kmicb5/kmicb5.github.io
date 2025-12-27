@@ -112,9 +112,12 @@ function renderRoster(players) {
   tournLabel.appendChild(document.createTextNode("Tournament columns"));
   toggleDiv.appendChild(tournLabel);
 
-  // Per-column checkboxes
+  // Per-column checkboxes (SKIP tournament columns)
   if (players.length > 0) {
     Object.keys(players[0]).forEach(column => {
+      // Skip tournament columns - master toggle handles them
+      if (TOURNAMENT_COLUMNS.includes(column)) return;
+      
       const label = document.createElement("label");
       label.style.display = "flex";
       label.style.alignItems = "center";
@@ -149,9 +152,18 @@ function renderRoster(players) {
   const headerRow = document.createElement("tr");
 
   if (players.length > 0) {
+    // Proper case tournament headers
+    const headerNames = {
+      bracket: "Bracket",
+      score: "Score",
+      tasks: "Tasks",
+      activeTask: "Active Task",
+      position: "Position"
+    };
+    
     Object.keys(players[0]).forEach(key => {
       const th = document.createElement("th");
-      th.textContent = key;
+      th.textContent = headerNames[key] || key;
       th.dataset.column = key;
       th.style.cursor = "pointer";
       th.style.userSelect = "none";
