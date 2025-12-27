@@ -26,27 +26,34 @@ async function fetchAllianceData() {
 
     // Merge tournament data if available
     if (Array.isArray(data.tournaments) && data.tournaments.length > 0) {
-  const tournByName = new Map(
-    data.tournaments
-      .filter(t => t.Name && t.Name.trim() !== "No items.")
-      .map(t => {
-        return [t.Name.trim(), {
-          bracket: t.Bracket || "",
-          score: t.Score || "",
-          tasks: t.Tasks || "",
-          activeTask: t["Active Task"] || "",
-          position: t.Position || ""
-        }];
-      })
-  );
+      const tournByName = new Map(
+        data.tournaments
+          .filter(t => t.Name && t.Name.trim() !== "No items.")
+          .map(t => {
+            return [t.Name.trim(), {
+              bracket: t.Bracket || "",
+              score: t.Score || "",
+              tasks: t.Tasks || "",
+              activeTask: t["Active Task"] || "",
+              position: t.Position || ""
+            }];
+          })
+      );
 
-  allPlayers = allPlayers.map(p => {
-    const playerName = p.Name || p.name || p.Player || p["Player"] || p["PLAYER"] || "";
-    const t = tournByName.get(playerName.trim());
-    return t ? { ...p, ...t } : p;
-  });
+      allPlayers = allPlayers.map(p => {
+        const playerName = p.Name || p.name || p.Player || p["Player"] || p["PLAYER"] || "";
+        const t = tournByName.get(playerName.trim());
+        return t ? { ...p, ...t } : p;
+      });
 
-  console.log(`Merged ${tournByName.size} tournament entries onto players`);
+      console.log(`Merged ${tournByName.size} tournament entries onto players`);
+    }
+
+    renderRoster(allPlayers);
+    console.log(`Successfully loaded ${allPlayers.length} players`);
+  } catch (err) {
+    console.error("Error fetching alliance ", err);
+  }
 }
 
 renderRoster(allPlayers);
