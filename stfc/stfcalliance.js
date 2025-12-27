@@ -61,7 +61,7 @@ console.log(`Successfully loaded ${allPlayers.length} players`);
 
 
 function renderRoster(players) {
-  const container = document.getElementById("roster-container");
+  const container = document.getElementById("roster-inner");
   if (!container) {
     console.error("Roster container not found in DOM");
     return;
@@ -171,11 +171,21 @@ function renderRoster(players) {
   players.forEach(player => {
     const row = document.createElement("tr");
     Object.keys(players[0]).forEach(key => {
-      const td = document.createElement("td");
-      td.textContent = player[key];
-      td.dataset.column = key;
-      row.appendChild(td);
-    });
+  const td = document.createElement("td");
+  td.dataset.column = key;
+  
+  // Tournament score bars
+  if (["score"].includes(key) && player[key]) {
+    const scoreBar = document.createElement("div");
+    scoreBar.className = "tournament-score-bar";
+    scoreBar.style.width = Math.min(parseFormattedNumber(player[key]) / 1e9 * 20, 100) + "px";
+    td.appendChild(scoreBar);
+  }
+  td.appendChild(document.createTextNode(player[key]));
+  
+  row.appendChild(td);
+});
+
     tbody.appendChild(row);
   });
 
