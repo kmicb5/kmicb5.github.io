@@ -1,18 +1,5 @@
 const ALLIANCE_WORKER_URL = "https://throbbing-night-83f1.gf9mkqbtwv.workers.dev";
 
-// Track which columns are visible
-const visibleColumns = {
-  server: true,
-  name: true,
-  arank: true,
-  level: true,
-  ahelps: true,
-  acontrib: true,
-  aisocontrib: true,
-  ajoined: true,
-  rssmined: true
-};
-
 async function fetchAllianceData() {
   try {
     const res = await fetch(ALLIANCE_WORKER_URL);
@@ -47,42 +34,6 @@ function renderRoster(players) {
   
   container.innerHTML = "";
   
-  // Create column toggle controls
-  const toggleDiv = document.createElement("div");
-  toggleDiv.className = "column-toggles";
-  toggleDiv.style.marginBottom = "15px";
-  toggleDiv.style.display = "flex";
-  toggleDiv.style.flexWrap = "wrap";
-  toggleDiv.style.gap = "10px";
-  
-  if (players.length > 0) {
-    Object.keys(players[0]).forEach(column => {
-      const label = document.createElement("label");
-      label.style.display = "flex";
-      label.style.alignItems = "center";
-      label.style.gap = "5px";
-      label.style.cursor = "pointer";
-      
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.checked = true;
-      checkbox.dataset.column = column;
-      checkbox.style.cursor = "pointer";
-      
-      checkbox.addEventListener("change", (e) => {
-        visibleColumns[column] = e.target.checked;
-        updateTableVisibility();
-      });
-      
-      label.appendChild(checkbox);
-      label.appendChild(document.createTextNode(column));
-      toggleDiv.appendChild(label);
-    });
-  }
-  
-  container.appendChild(toggleDiv);
-  
-  // Create table
   const table = document.createElement("table");
   table.id = "roster";
   
@@ -94,7 +45,6 @@ function renderRoster(players) {
     Object.keys(players[0]).forEach(key => {
       const th = document.createElement("th");
       th.textContent = key;
-      th.dataset.column = key;
       headerRow.appendChild(th);
     });
   }
@@ -109,7 +59,6 @@ function renderRoster(players) {
     Object.keys(players[0]).forEach(key => {
       const td = document.createElement("td");
       td.textContent = player[key];
-      td.dataset.column = key;
       row.appendChild(td);
     });
     tbody.appendChild(row);
@@ -117,35 +66,15 @@ function renderRoster(players) {
   
   table.appendChild(tbody);
   container.appendChild(table);
-  
-  // Apply initial visibility
-  updateTableVisibility();
 }
 
-function updateTableVisibility() {
-  const table = document.getElementById("roster");
-  if (!table) return;
-  
-  // Update header visibility
-  table.querySelectorAll("th").forEach(th => {
-    const column = th.dataset.column;
-    if (visibleColumns[column] === true) {
-      th.style.display = "table-cell";
-    } else {
-      th.style.display = "none";
-    }
-  });
-  
-  // Update cell visibility
-  table.querySelectorAll("td").forEach(td => {
-    const column = td.dataset.column;
-    if (visibleColumns[column] === true) {
-      td.style.display = "table-cell";
-    } else {
-      td.style.display = "none";
-    }
-  });
-}
+document.addEventListener("DOMContentLoaded", () => {
+  fetchAllianceData();
+  setInterval(fetchAllianceData, 5 * 60 * 1000);
+});
+
+
+
 
 // const ALLIANCE_WORKER_URL = "https://throbbing-night-83f1.gf9mkqbtwv.workers.dev";
 
