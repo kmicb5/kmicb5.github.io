@@ -130,17 +130,24 @@ function parseFormattedNumber(value) {
   if (typeof value !== 'string') return parseFloat(value) || 0;
   
   const trimmed = value.trim();
-  const match = trimmed.match(/^([\d.]+)([MB]?)$/i);
+
+  const match = trimmed.match(/^([\d.]+)\s*([KMBT]?)$/i);
   
-  if (!match) return 0;
+  if (!match) {
+    // If no match, try just a plain number
+    const plainNum = parseFloat(trimmed);
+    return isNaN(plainNum) ? 0 : plainNum;
+  }
   
   let num = parseFloat(match[1]);
-  const suffix = match[2].toUpperCase();
+  if (isNaN(num)) return 0;
+
+  const suffix = match[2] ? match[2].toUpperCase() : '';
   
   if (suffix === 'K') num *= 1000;
-  if (suffix === 'M') num *= 1000000;
-  if (suffix === 'B') num *= 1000000000;
-  if (suffix === 'T') num *= 1000000000000;
+  else if (suffix === 'M') num *= 1000000;
+  else if (suffix === 'B') num *= 1000000000;
+  else if (suffix === 'T') num *= 1000000000000;
   
   return num;
 }
