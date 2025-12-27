@@ -65,7 +65,7 @@ function renderRoster(players) {
       
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
-      checkbox.checked = visibleColumns[column];
+      checkbox.checked = true;
       checkbox.dataset.column = column;
       checkbox.style.cursor = "pointer";
       
