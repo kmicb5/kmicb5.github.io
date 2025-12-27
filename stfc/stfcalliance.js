@@ -1,32 +1,42 @@
-function renderRoster(players) {
-  const tbody = document.querySelector("#roster tbody");
-  tbody.innerHTML = "";
+const ALLIANCE_WORKER_URL = "https://throbbing-night-83f1.gf9mkqbtwv.workers.dev";
 
-  // Find max values for scaling bars
-  const maxPower = Math.max(...players.map(p => p.power));
-  const maxHelps = Math.max(...players.map(p => p.ahelps));
+async function fetchAllianceData() {
+  try {
+    const res = await fetch(ALLIANCE_WORKER_URL);
+    const html = await res.text();
+    console.log(html); // debug: confirm the raw Worker HTML
 
-  players.forEach(p => {
-    const tr = document.createElement("tr");
+    // Extract player array (values) - adjust regex if site changes
+    const arrayMatch = html.match(/\[(?:\".*?\"|[0-9.]+,?)+\]/);
+    if (!arrayMatch) return console.error("Player array not found.");
+    const values = JSON.parse(arrayMatch[0]);
 
-    // Scale bars to max 100px width
-    const powerWidth = Math.floor((p.power / maxPower) * 100);
-    const helpsWidth = Math.floor((p.ahelps / maxHelps) * 100);
+    // Extract field map
+    const mapMatch = html.match(/\{(?:\s*\".*?\":\d+,?)+\}/);
+    if (!mapMatch) return console.error("Field map not found.");
+    const fieldMap = JSON.parse(mapMatch[0]);
 
-    tr.innerHTML = `
-      <td>${p.name}</td>
-      <td>${p.level}</td>
-      <td>
-        ${p.power.toLocaleString()} 
-        <div class="stat-bar stat-power" style="width:${powerWidth}px"></div>
-      </td>
-      <td>${p.arank}</td>
-      <td>
-        ${p.ahelps} 
-        <div class="stat-bar stat-helps" style="width:${helpsWidth}px"></div>
-      </td>
-    `;
+    // Build player objects
+    const players = [];
+    const blockSize = Object.keys(fieldMap).length;
+    for (let i = 0; i < values.length; i += blockSize) {
+      const block = values.slice(i, i + blockSize);
+      const player = {};
+      for (const key in fieldMap) {
+        player[key] = block[fieldMap[key]];
+      }
+      players.push(player);
+    }
 
-    tbody.appendChild(tr);
-  });
+    renderRoster(players);
+
+  } catch (err) {
+    console.error("Error fetching alliance data:", err);
+  }
 }
+
+// Call fetch once DOM is ready
+document.addEventListener("DOMContentLoaded", () => {
+  fetchAllianceData();
+  setInterval(fetchAllianceData, 5 * 60 * 1000); // refresh every 5 min
+});
