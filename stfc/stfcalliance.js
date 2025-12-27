@@ -8,37 +8,18 @@ async function fetchAllianceData() {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
     
-    const html = await res.text();
+    // Parse as JSON (not text)
+    const playerData = await res.json();
+    console.log("Player ", playerData);
     
-    // DIAGNOSTIC: Log the raw response
-    console.log("Raw response:", html);
-    console.log("Response length:", html.length);
-    console.log("First 500 chars:", html.substring(0, 500));
+    // The structure depends on what stfc.pro returns
+    // Adjust these keys based on the actual data structure
+    const players = playerData.players || playerData.data || playerData.alliance || [];
     
-    // Try to extract JSON blocks
-    const playerBlocks = html.match(/(\[.*?\])|(\{.*?\})/g);
-    console.log("Parsed blocks:", playerBlocks);
-    
-    if (!playerBlocks || playerBlocks.length < 2) {
-      console.error("Could not parse players - no JSON blocks found");
+    if (!Array.isArray(players) || players.length === 0) {
+      console.error("No player data found");
+      console.log("Full response structure:", playerData);
       return;
-    }
-    
-    console.log("First block:", playerBlocks[0]);
-    console.log("Second block:", playerBlocks[1]);
-    
-    const values = JSON.parse(playerBlocks[0]);
-    const fieldMap = JSON.parse(playerBlocks[1]);
-    const players = [];
-    const blockSize = Object.keys(fieldMap).length;
-    
-    for (let i = 0; i < values.length; i += blockSize) {
-      const block = values.slice(i, i + blockSize);
-      const player = {};
-      for (const key in fieldMap) {
-        player[key] = block[fieldMap[key]];
-      }
-      players.push(player);
     }
     
     renderRoster(players);
