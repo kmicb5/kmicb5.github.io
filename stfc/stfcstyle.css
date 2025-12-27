@@ -85,17 +85,17 @@ table#roster tbody tr:nth-child(even) {
 
 /* LCARS header glow */
 .lcars-header {
-  position: relative; /* ADD this line */
+  position: relative;
 }
 
-.lcars-header::before {
+/* .lcars-header::before {
   content: '';
   position: absolute;
   bottom: -3px; left: 0;
   width: 100%; height: 3px;
   background: #00ccff;
   box-shadow: 0 0 10px #00ccff;
-}
+} */
 
 /* Enhanced table rows */
 table#roster tbody tr:nth-child(odd) {
