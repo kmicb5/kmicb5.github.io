@@ -129,24 +129,23 @@ function updateTableVisibility() {
   // Update header visibility
   table.querySelectorAll("th").forEach(th => {
     const column = th.dataset.column;
-    th.style.display = visibleColumns[column] ? "" : "none";
+    if (visibleColumns[column] === true) {
+      th.style.display = "table-cell";
+    } else {
+      th.style.display = "none";
+    }
   });
   
   // Update cell visibility
   table.querySelectorAll("td").forEach(td => {
     const column = td.dataset.column;
-    td.style.display = visibleColumns[column] ? "" : "none";
+    if (visibleColumns[column] === true) {
+      td.style.display = "table-cell";
+    } else {
+      td.style.display = "none";
+    }
   });
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  fetchAllianceData();
-  setInterval(fetchAllianceData, 5 * 60 * 1000);
-});
-
-
-
-
 
 // const ALLIANCE_WORKER_URL = "https://throbbing-night-83f1.gf9mkqbtwv.workers.dev";
 
