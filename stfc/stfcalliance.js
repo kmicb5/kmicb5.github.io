@@ -1,5 +1,7 @@
 const ALLIANCE_WORKER_URL = "https://throbbing-night-83f1.gf9mkqbtwv.workers.dev";
 
+const visibleColumns = {};
+
 async function fetchAllianceData() {
   try {
     const res = await fetch(ALLIANCE_WORKER_URL);
@@ -34,6 +36,49 @@ function renderRoster(players) {
   
   container.innerHTML = "";
   
+  // Initialize all columns as visible
+  if (players.length > 0) {
+    Object.keys(players[0]).forEach(column => {
+      visibleColumns[column] = true;
+    });
+  }
+  
+  // Create checkboxes
+  const toggleDiv = document.createElement("div");
+  toggleDiv.className = "column-toggles";
+  toggleDiv.style.marginBottom = "15px";
+  toggleDiv.style.display = "flex";
+  toggleDiv.style.flexWrap = "wrap";
+  toggleDiv.style.gap = "10px";
+  
+  if (players.length > 0) {
+    Object.keys(players[0]).forEach(column => {
+      const label = document.createElement("label");
+      label.style.display = "flex";
+      label.style.alignItems = "center";
+      label.style.gap = "5px";
+      label.style.cursor = "pointer";
+      
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = true;
+      checkbox.dataset.column = column;
+      checkbox.style.cursor = "pointer";
+      
+      checkbox.addEventListener("change", (e) => {
+        visibleColumns[column] = e.target.checked;
+        toggleColumn(column, e.target.checked);
+      });
+      
+      label.appendChild(checkbox);
+      label.appendChild(document.createTextNode(column));
+      toggleDiv.appendChild(label);
+    });
+  }
+  
+  container.appendChild(toggleDiv);
+  
+  // Create table
   const table = document.createElement("table");
   table.id = "roster";
   
@@ -45,6 +90,7 @@ function renderRoster(players) {
     Object.keys(players[0]).forEach(key => {
       const th = document.createElement("th");
       th.textContent = key;
+      th.dataset.column = key;
       headerRow.appendChild(th);
     });
   }
@@ -59,6 +105,7 @@ function renderRoster(players) {
     Object.keys(players[0]).forEach(key => {
       const td = document.createElement("td");
       td.textContent = player[key];
+      td.dataset.column = key;
       row.appendChild(td);
     });
     tbody.appendChild(row);
@@ -68,11 +115,26 @@ function renderRoster(players) {
   container.appendChild(table);
 }
 
+function toggleColumn(column, isVisible) {
+  const table = document.getElementById("roster");
+  if (!table) return;
+  
+  const headers = table.querySelectorAll(`th[data-column="${column}"]`);
+  const cells = table.querySelectorAll(`td[data-column="${column}"]`);
+  
+  headers.forEach(th => {
+    th.style.display = isVisible ? "" : "none";
+  });
+  
+  cells.forEach(td => {
+    td.style.display = isVisible ? "" : "none";
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   fetchAllianceData();
   setInterval(fetchAllianceData, 5 * 60 * 1000);
 });
-
 
 
 
@@ -134,9 +196,9 @@ document.addEventListener("DOMContentLoaded", () => {
 //   const tbody = document.createElement("tbody");
 //   players.forEach(player => {
 //     const row = document.createElement("tr");
-//     Object.values(player).forEach(value => {
+//     Object.keys(players[0]).forEach(key => {
 //       const td = document.createElement("td");
-//       td.textContent = value;
+//       td.textContent = player[key];
 //       row.appendChild(td);
 //     });
 //     tbody.appendChild(row);
