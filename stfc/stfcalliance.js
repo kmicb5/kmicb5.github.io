@@ -129,13 +129,13 @@ function updateTableVisibility() {
   // Update header visibility
   table.querySelectorAll("th").forEach(th => {
     const column = th.dataset.column;
-    th.style.display = visibleColumns[column] ? "" : "none";
+    th.style.display = visibleColumns[column] ? "table-cell !important" : "none !important";
   });
   
   // Update cell visibility
   table.querySelectorAll("td").forEach(td => {
     const column = td.dataset.column;
-    td.style.display = visibleColumns[column] ? "" : "none";
+    td.style.display = visibleColumns[column] ? "table-cell !important" : "none !important";
   });
 }
 
