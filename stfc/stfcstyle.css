@@ -1,0 +1,59 @@
+body {
+  background: #000;
+  font-family: 'Orbitron', sans-serif;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.lcars-container {
+  margin: 20px auto;
+  width: 90%;
+  max-width: 1200px;
+  background: #111;
+  border-radius: 20px;
+  box-shadow: 0 0 20px #ffcc00;
+  overflow: hidden;
+}
+
+.lcars-header {
+  background: #ff9900;
+  color: #000;
+  padding: 15px;
+  font-size: 2em;
+  font-weight: bold;
+  border-radius: 20px 20px 0 0;
+  text-align: center;
+}
+
+#roster-container {
+  padding: 10px;
+}
+
+table#roster {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table#roster th, table#roster td {
+  padding: 10px;
+  text-align: left;
+}
+
+table#roster tbody tr:nth-child(odd) {
+  background: #222;
+}
+
+table#roster tbody tr:nth-child(even) {
+  background: #333;
+}
+
+/* Colored bars for Power and Helps */
+.stat-bar {
+  display: inline-block;
+  height: 10px;
+  border-radius: 5px;
+}
+
+.stat-power { background: #ffcc00; }
+.stat-helps { background: #00ccff; }
